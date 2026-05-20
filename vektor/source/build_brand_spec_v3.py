@@ -1,6 +1,5 @@
 """
 Brand & Build Specification — full branded ReportLab rebuild.
-FMP additions: document register entry, build order step, deployment sequence update.
 """
 import os as _os
 _SCRIPT_DIR  = _os.path.dirname(_os.path.abspath(__file__))
@@ -453,10 +452,6 @@ def build():
          'CTABox(width, headline, body, ask, url, styles)',
          ['\u2014 Structure: Full-width. Gold 3pt bars top + bottom. Gold 1.2pt border all sides. CARD_BG.',
           '\u2014 Contents: Headline (cta_head, gold), body text, Vektor logo centred, CTA ask, URL with hyperlink.']),
-        ('FMPBox \u2014 Founding Mandate Programme',
-         'FMPBox(width, styles, pad=18)',
-         ['\u2014 Background: Dark warm (#171510). Gold top+bottom bars 3pt. Gold border #3A3020.',
-          '\u2014 Terms: Fixed two-column: Slots / Commercial / Access / Roadmap / Recognition / Close date.']),
         ('CoverPage \u2014 Document Cover',
          'CoverPage(W, H, doc_type, title, description, audience, logo_path)',
          ['\u2014 Logo position: ly = H \u00d7 0.52. lw = min(W \u00d7 0.62, 320). lh scales proportionally.',
@@ -503,12 +498,6 @@ def build():
          para('IP-WP-AUD-260501-1.0',s,'tbl_mono'),para('build_white_papers.py \u2192 build_wp06()',s,'tbl_mono')],
         [para('INT',s,'tbl_mono'),para('Document Journey Guide (internal)',s,'tbl_name'),
          para('\u2014',s,'tbl_body'),para('build_journey_guide.py \u2192 build()',s,'tbl_mono')],
-        # FMP NEW ENTRY
-        [para('FMP',s,'tbl_mono_gold'),
-         Paragraph('Founding Mandate Programme \u25b6 NEW',
-            ParagraphStyle('reg_new',fontName='Helvetica-Bold',fontSize=8.5,textColor=GOLD,leading=12)),
-         para('IP-FMP-260501-1.0',s,'tbl_mono_gold'),
-         para('build_founding_mandate.py \u2192 build()',s,'tbl_mono_gold')],
     ]
     story.append(dark_table(['#','DOCUMENT','REFERENCE','BUILD SCRIPT'],reg_rows,
         [16*mm,52*mm,36*mm,COL_W-104*mm],s))
@@ -526,7 +515,6 @@ def build():
         ('build_white_papers.py','WP-02 through WP-06.'),
         ('build_extras.py','At a Glance + Research Series Index.'),
         ('build_journey_guide.py','Internal Document Journey Guide.'),
-        ('build_founding_mandate.py','Founding Mandate Programme (IP-FMP-260501-1.0). Added May 2026.'),
         ('build_word_docs.js','All 12 Word documents. Requires Node.js + docx@9.6.1.'),
     ]
     for fname, desc in req_files:
@@ -540,15 +528,13 @@ def build():
     story.append(para('npm install -g docx',s,'code'))
     story.append(sp(8))
     story.append(para('BUILD ORDER',s,'sub_head'))
-    # UPDATED: FMP step added
     build_steps=[
         ('1.','python3 build_final_suite.py','# 01, 02, 03'),
         ('2.','python3 build_brochure_final.py','# 04 (use this, not build_final_suite for brochure)'),
         ('3.','python3 build_white_papers.py','# WP-02 through WP-06'),
         ('4.','python3 build_extras.py','# 00, WP-00'),
         ('5.','python3 build_journey_guide.py','# Internal journey guide'),
-        ('6.','python3 build_founding_mandate.py','# Founding Mandate Programme [NEW]'),
-        ('7.','node build_word_docs.js','# All 12 Word documents'),
+        ('6.','node build_word_docs.js','# All 12 Word documents'),
     ]
     for step, cmd, comment in build_steps:
         is_new = '[NEW]' in comment
@@ -600,7 +586,7 @@ def build():
         ('Overfitting section in WP-04 is mandatory.',
          'Must include three mitigations (bounded search, Sharpe objective, daily re-optimisation) and the candour note acknowledging the limitation.'),
         ('Regulatory standing note is mandatory in Why Vektor and WP-06.',
-         'Present but not detailed \u2014 available on request as part of Founding Mandate due diligence.'),
+         'Present but not detailed \u2014 available on request.'),
     ]
     for title, body in tech_decisions:
         story.append(para(f'<b>{title}</b>',s))
@@ -610,7 +596,7 @@ def build():
     story.append(para(
         'The following are intentionally absent from all documents. Do not include unless explicitly instructed: '
         'founder name \u2014 not disclosed. Regulatory standing detail \u2014 available on request only. '
-        'Social proof / reference clients \u2014 Founding Mandate Programme generates this. '
+        'Social proof / reference clients \u2014 available on request only. '
         'Post-trade audit trail \u2014 on roadmap with IBKR. '
         'Formal walk-forward validation \u2014 on roadmap.',s,'body_grey'))
     story.append(PageBreak())
@@ -682,8 +668,7 @@ def build():
     # Updated deployment sequence
     story.append(para(
         'Deployment sequence: 00 At a Glance \u2192 04 Brochure \u2192 01 Why Vektor \u2192 03 WP-01 \u2192 '
-        '02 Brand Story \u2192 FMP Founding Mandate Programme (post-NDA) \u2192 Founding Mandate conversation '
-        '\u2192 WP-02 through WP-06.',s,'body_grey'))
+        '02 Brand Story \u2192 Proof Partners conversation \u2192 WP-02 through WP-06.',s,'body_grey'))
     story.append(sp(10))
     story.append(para(
         f'Vektor by InvestPuppy  \u00b7  investpuppy.com  \u00b7  Brand & Build Specification  \u00b7  Internal Use Only  \u00b7  {DATE}',
