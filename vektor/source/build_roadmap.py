@@ -14,9 +14,9 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
 from reportlab.lib.utils import ImageReader
 
-OUT        = '/home/claude/ip-brand-product-roadmap.pdf'
-VEKTOR_PNG = '/mnt/user-data/uploads/VEKTOR-transparent.png'
-IP_LOGO    = '/mnt/user-data/uploads/ip_logo_vertical.png'
+OUT        = '/home/claude/investpuppy/vektor/output/pdf/ip-brand-product-roadmap.pdf'
+VEKTOR_PNG = '/home/claude/investpuppy/_shared/logos/VEKTOR-transparent-v3.png'
+IP_LOGO    = '/home/claude/investpuppy/_shared/logos/ip_logo_vertical.png'
 
 GREEN   = colors.HexColor('#85D155')
 DARK    = colors.HexColor('#0A0A0A')

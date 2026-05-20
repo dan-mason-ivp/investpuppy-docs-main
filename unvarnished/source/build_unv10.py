@@ -10,7 +10,7 @@ Far end of table: one person with a single notepad and pen, no laptop. \
 Projected slide reads: RESOURCE PLAN \u2013 PHASE 1. Dense grid of names and roles. \
 Overhead fluorescent light."
 NUM   = 10
-OUT   = "/mnt/user-data/outputs/ip-unv-10-nine-women.pdf"
+OUT   = "/home/claude/investpuppy/unvarnished/output/ip-unv-10-nine-women.pdf"
 # Use unv08 cover as placeholder — no unv10 photo yet
 IMG   = "/tmp/unv_work/investpuppy/_shared/cover-photos/unv10_cover_photo.jpg"
 S     = get_styles()

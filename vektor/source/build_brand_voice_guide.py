@@ -31,7 +31,7 @@ W, H   = A4
 ML = MR = 18*mm
 MT = 20*mm
 MB = 16*mm
-LOGO   = '/home/claude/vk2-work/IPHorizontalClear.png'
+LOGO   = '/home/claude/investpuppy/_shared/logos/IPHorizontalClear.png'
 COL_W  = W - ML - MR
 
 def S(name, **kw):
