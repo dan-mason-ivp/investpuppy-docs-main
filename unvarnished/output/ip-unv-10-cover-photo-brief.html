@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photographer Brief — UNV-10 Cover</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: #0A0A0F;
+  color: #C8C4BC;
+  font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+.page { max-width: 780px; margin: 0 auto; padding: 0 0 48px; }
+
+.topbar {
+  background: #13131C;
+  border-bottom: 1px solid #2A2A3E;
+  padding: 10px 24px;
+  font-size: 11px;
+  color: #8C8898;
+  display: flex;
+  justify-content: space-between;
+}
+.topbar .logo { color: #85D155; font-weight: 700; letter-spacing: 1.5px; font-size: 10px; text-transform: uppercase; }
+
+.cover {
+  background: #0A0A0F;
+  padding: 36px 28px 24px;
+  border-bottom: 1px solid #2A2A3E;
+}
+.eyebrow { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #85D155; font-weight: 700; margin-bottom: 10px; }
+h1 { font-size: 24px; font-weight: 700; color: #E8E8EC; margin-bottom: 6px; line-height: 1.2; }
+h1 em { color: #85D155; font-style: normal; }
+.cover-sub { font-size: 13px; color: #8C8898; font-style: italic; }
+.green-rule { height: 2px; background: linear-gradient(to right, #85D155, transparent); margin: 18px 0; }
+
+.content { padding: 0 28px; background: #0A0A0F; }
+
+.sh {
+  margin: 32px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2A2A3E;
+  display: flex; align-items: baseline; gap: 12px;
+}
+.sh h2 { font-size: 15px; font-weight: 700; color: #E8E8EC; }
+.sh .tag { font-size: 10px; color: #85D155; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
+
+p.bd { font-size: 13px; color: #C8C4BC; line-height: 1.65; margin-bottom: 10px; }
+p.bd strong { color: #E8E8EC; }
+
+/* Context box */
+.ctx {
+  background: #13131C;
+  border: 1px solid #2A2A3E;
+  border-left: 3px solid #85D155;
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 13px;
+  color: #C8C4BC;
+  font-style: italic;
+  line-height: 1.65;
+}
+
+/* Item rows */
+.spec-grid { margin: 14px 0; }
+.spec-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0;
+  border-bottom: 1px solid #2A2A3E;
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-label {
+  background: #13131C;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #85D155;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-right: 1px solid #2A2A3E;
+}
+.spec-value {
+  background: #0D0D14;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #C8C4BC;
+  line-height: 1.6;
+}
+
+/* Objects table */
+.obj-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+.obj-table th {
+  background: #1A1A28;
+  color: #85D155;
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #2A2A3E;
+}
+.obj-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #2A2A3E;
+  vertical-align: top;
+  color: #C8C4BC;
+  line-height: 1.55;
+}
+.obj-table tr:nth-child(odd) td { background: #13131C; }
+.obj-table tr:nth-child(even) td { background: #0D0D14; }
+.obj-table td:first-child { font-weight: 600; color: #E8E8EC; white-space: nowrap; }
+.obj-table tr:last-child td { border-bottom: none; }
+
+/* What to avoid */
+.avoid {
+  background: #1A0A0A;
+  border: 1px solid #3E2A2A;
+  border-left: 3px solid #C62828;
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+}
+.avoid .ah { color: #C62828; font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+.avoid ul { list-style: none; padding: 0; }
+.avoid ul li {
+  font-size: 13px;
+  color: #C8C4BC;
+  padding: 4px 0 4px 18px;
+  position: relative;
+  border-bottom: 1px solid #2A1A1A;
+}
+.avoid ul li:last-child { border-bottom: none; }
+.avoid ul li::before { content: '✕'; position: absolute; left: 0; color: #C62828; font-size: 11px; }
+
+/* Story connection */
+.story {
+  background: #13131C;
+  border: 1px solid #2A2A3E;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 14px 0;
+}
+.story .st { color: #E8E8EC; font-weight: 700; font-size: 13px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #2A2A3E; }
+.story p { font-size: 13px; color: #C8C4BC; line-height: 1.65; margin-bottom: 6px; }
+.story p:last-child { margin-bottom: 0; }
+
+/* Series reference */
+.series-ref {
+  background: #0D0D14;
+  border: 1px solid #2A2A3E;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 12px;
+  color: #8C8898;
+}
+.series-ref strong { color: #C8C4BC; }
+
+/* AI generation prompt */
+.prompt-box {
+  background: #0A1A0A;
+  border: 1px solid #1A3E1A;
+  border-left: 3px solid #85D155;
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #85D155;
+  line-height: 1.7;
+}
+.prompt-label { color: #8C8898; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-family: Helvetica, Arial, sans-serif; margin-bottom: 8px; }
+
+.doc-footer {
+  background: #13131C;
+  border-top: 1px solid #2A2A3E;
+  padding: 14px 28px;
+  font-size: 11px;
+  color: #8C8898;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 32px;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <span class="logo">InvestPuppy · Unvarnished</span>
+  <span>Photographer brief · UNV-10 cover · Internal</span>
+</div>
+
+<div class="cover">
+  <div class="eyebrow">Photographer Brief</div>
+  <h1>UNV-10 Cover: <em>Option A</em></h1>
+  <p class="cover-sub">The overcrowded abandoned boardroom table · One notepad, one pen · No people</p>
+  <div class="green-rule"></div>
+  <div class="ctx">
+    "9 Women Cannot Make a Baby in 1 Month" is the tenth paper in the Unvarnished series — field notes from decades of bad projects. The paper argues that adding more people to a knowledge-work project does not compress the timeline, drives up coordination cost, and — when people arrive too late — actively prevents delivery by consuming the expert's capacity at the moment it is most needed. The cover should communicate this without caption or explanation.
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- TECHNICAL SPECS -->
+  <div class="sh"><h2>Technical Specifications</h2><span class="tag">Requirements</span></div>
+  <div class="spec-grid">
+    <div class="spec-row"><div class="spec-label">Format</div><div class="spec-value">Portrait (vertical). A4 proportions or equivalent (210 × 297mm / 8.27 × 11.69 in).</div></div>
+    <div class="spec-row"><div class="spec-label">Resolution</div><div class="spec-value">Minimum 300dpi at final print size. Preferred: 600dpi or RAW/TIFF delivery.</div></div>
+    <div class="spec-row"><div class="spec-label">Colour</div><div class="spec-value">Colour photograph. Slightly desaturated post-processing acceptable — the series uses muted, documentary tones. Not black and white.</div></div>
+    <div class="spec-row"><div class="spec-label">Safe zone</div><div class="spec-value">The bottom third of the image will carry the paper title, series mark, and InvestPuppy logo. Keep this zone free of primary subject matter. The main composition should occupy the upper two-thirds.</div></div>
+    <div class="spec-row"><div class="spec-label">Delivery</div><div class="spec-value">JPEG (high quality) and RAW or TIFF. Named: unv10_cover_photo.jpg / unv10_cover_photo.tif</div></div>
+    <div class="spec-row"><div class="spec-label">Rights</div><div class="spec-value">Full commercial rights required. InvestPuppy to hold perpetual licence for print, digital, and promotional use without attribution requirement.</div></div>
+  </div>
+
+  <!-- THE IMAGE -->
+  <div class="sh"><h2>The Image</h2><span class="tag">Composition</span></div>
+  <p class="bd"><strong>Core concept:</strong> A long boardroom table. Evidence of too many people who have recently been present — but no people visible. At the far end of the table: a single notepad, open, with handwriting visible but not readable, and a pen resting across the page. Everything else on the table suggests a crowd. The notepad suggests one person who was there to work.</p>
+  <p class="bd">The image must communicate its meaning without a caption. The contrast between the accumulated evidence of many people and the single focused object is the story.</p>
+
+  <div class="sh"><h2>Objects on the Table</h2><span class="tag">Props and placement</span></div>
+  <table class="obj-table">
+    <tr><th>Object</th><th>Quantity and detail</th><th>Placement</th></tr>
+    <tr>
+      <td>Chairs</td>
+      <td>6–10 chairs. Pushed back at different angles — not neatly tucked in. People left at different times, not together.</td>
+      <td>Both sides of the table, some pulled back from the table surface, one or two slightly askew.</td>
+    </tr>
+    <tr>
+      <td>Laptops</td>
+      <td>4–5 laptops. Some open, some partially closed. Different makes and models. One with a power cable trailing off the edge.</td>
+      <td>Distributed unevenly across the table. Not arranged. Abandoned mid-session.</td>
+    </tr>
+    <tr>
+      <td>Coffee cups</td>
+      <td>5–7 cups. Mix of disposable takeaway cups (with sleeves) and ceramic cups. Some with remnant coffee. One with a lipstick mark on the rim. One with a pen scribbled note on the sleeve.</td>
+      <td>Various positions — not clustered. One near the edge as if about to be forgotten.</td>
+    </tr>
+    <tr>
+      <td>Printed documents</td>
+      <td>One or two small stacks of printed pages. Face down or loosely fanned. Not important enough for anyone to take with them.</td>
+      <td>Mid-table. Not at the notepad end.</td>
+    </tr>
+    <tr>
+      <td>Water glasses / bottles</td>
+      <td>2–3 glasses at various fill levels, or branded water bottles.</td>
+      <td>Scattered. One empty, tipped slightly.</td>
+    </tr>
+    <tr>
+      <td>Notepad</td>
+      <td><strong>The key object.</strong> A4 or legal-size notepad. Open to a page with handwriting — dense, purposeful, visible but not readable. Pen resting diagonally across the page. No laptop nearby. This position is the one place where someone was actually working.</td>
+      <td><strong>Far end of the table from camera.</strong> Isolated. A clear visual contrast with the accumulated overhead at the near end.</td>
+    </tr>
+    <tr>
+      <td>Name placards / tent cards</td>
+      <td>Optional — adds the "project meeting" atmosphere. If used: standard white tent cards, blank or with generic role titles (PROJECT MANAGER, CHANGE LEAD, WORKSTREAM LEAD, etc.).</td>
+      <td>Along the table sides. Not at the notepad position.</td>
+    </tr>
+  </table>
+
+  <!-- LIGHTING -->
+  <div class="sh"><h2>Lighting and Atmosphere</h2><span class="tag">Mood</span></div>
+  <p class="bd"><strong>Time of day:</strong> After the meeting has ended. Not during. The room has been occupied. It has been vacated. The overhead fluorescent or LED panel lighting is still on — institutional, slightly harsh. Natural light from windows is acceptable as a secondary source but should not dominate.</p>
+  <p class="bd"><strong>Tone:</strong> Documentary. Not styled or aspirational. This is not a corporate brochure photograph of a beautiful boardroom. This is a photograph of what a project meeting looks like after everyone has left. The mess is deliberate and important.</p>
+  <p class="bd"><strong>Colour temperature:</strong> Slightly cool or neutral. The fluorescent-lit institutional boardroom palette. Not warm-toned or golden-hour lit.</p>
+  <p class="bd"><strong>Depth of field:</strong> Sufficient depth to keep the full table length in focus. The notepad at the far end must be identifiable as a notepad with handwriting. Shallow-focus bokeh that blurs the far end is not appropriate for this image.</p>
+
+  <!-- CAMERA POSITION -->
+  <div class="sh"><h2>Camera Position</h2><span class="tag">Framing</span></div>
+  <p class="bd"><strong>Position:</strong> Slightly elevated — approximately standing eye level or just above. Not a bird's-eye overhead view. The camera should be at the near end of the table looking along its length toward the notepad at the far end.</p>
+  <p class="bd"><strong>Angle:</strong> Straight down the length of the table or very slightly off-axis. The full length of the table should be visible, establishing the scale and the distance between the occupied end and the working end.</p>
+  <p class="bd"><strong>Framing:</strong> The table should occupy most of the frame. The room — ceiling, walls, windows — provides context but is secondary. The viewer's eye should travel down the table from the accumulated debris to the notepad.</p>
+
+  <!-- WHAT TO AVOID -->
+  <div class="avoid">
+    <div class="ah">What to avoid</div>
+    <ul>
+      <li>People in the frame — the room must be empty. The story is told by absence.</li>
+      <li>Branded items — no visible laptop brand logos, recognisable coffee chain cups, or company names on any printed material.</li>
+      <li>Aspirational or beautiful boardroom styling — this is not a prestige office photograph.</li>
+      <li>Extreme wide-angle distortion — the table should look like a table, not an architectural feature.</li>
+      <li>Soft focus on the notepad — it must be identifiable as a working document.</li>
+      <li>An overly tidy "staged" appearance — the mess is the point. If it looks like a photoshoot, reshoot.</li>
+      <li>Visible written text that is readable — handwriting on the notepad should be visible but not legible. Printed text on documents should face down or be out of focus.</li>
+      <li>Any InvestPuppy or Vektor branding in the scene — the cover design applies the branding; the photograph should be neutral.</li>
+    </ul>
+  </div>
+
+  <!-- STORY CONNECTION -->
+  <div class="story">
+    <div class="st">Why this image</div>
+    <p>The paper describes a specific moment: additional consultants are assigned to a failing project and arrive on the morning the deliverable was due. The experienced person who has been doing the work must now bring them up to speed — eight weeks of context, decisions, and dead ends — at the moment when that time cannot be spared.</p>
+    <p>The overcrowded abandoned table communicates this story without naming it. The chairs pushed back at different angles: people arrived, occupied space, generated overhead, and left. The laptops and coffee cups: evidence of activity without evidence of output. The notepad at the far end: the one person who was there to do the work.</p>
+    <p>The image should make the viewer feel that they have been in this room. Not as a visual impression — as a physical memory. Every experienced practitioner has been in this room. The cover photograph is the moment of recognition before the first word is read.</p>
+  </div>
+
+  <!-- AI GENERATION -->
+  <div class="sh"><h2>For AI Image Generation</h2><span class="tag">Midjourney / DALL-E / Firefly prompt</span></div>
+  <p class="bd">If sourcing via AI generation rather than commissioned photography, use the following prompt as a starting point. Adjust aspect ratio and style parameters per platform.</p>
+  <div class="prompt-box">
+    <div class="prompt-label">Suggested prompt</div>
+    Long boardroom table photographed from the near end looking toward far end, slightly elevated camera position, portrait orientation. 6 to 8 chairs pushed back at different angles, 4 laptops open and abandoned, 6 takeaway coffee cups with sleeves at various positions, one stack of face-down printed documents mid-table, two half-empty water glasses. At the far end of the table: a single open notepad with dense handwriting, one pen resting across the page, no laptop. Overhead fluorescent institutional lighting, slightly cool colour temperature, no people, no visible text on any object. Documentary photography style, not styled or aspirational, slightly desaturated, sharp focus throughout full depth of table. The room has just been vacated. Shot on 35mm equivalent lens, neutral colour grading.
+  </div>
+  <p class="bd" style="font-size:12px;color:#8C8898;font-style:italic;">Note: AI-generated images for this series require provenance confirmation before publication. Flag any AI-generated image clearly for the InvestPuppy team review before use.</p>
+
+  <!-- SERIES CONTEXT -->
+  <div class="sh"><h2>Series Context</h2><span class="tag">Reference</span></div>
+  <div class="series-ref">
+    <p><strong>The Unvarnished series</strong> uses documentary-style cover photographs that communicate the paper's central argument without caption. Previous covers include: a UAT sign-off document with a packed bag visible and empty chairs behind it (UNV-09); a Swiss Army knife resting on a financial spreadsheet (UNV-07); a jammed photocopier paper tray (UNV-01). The visual language is consistent: real objects in real environments, no people, no staging, slightly institutional in tone.</p>
+    <p style="margin-top:8px">The cover photograph occupies the upper two-thirds of the A4 cover page. The InvestPuppy logo, paper title, and series mark are placed over the lower third. The photograph should work as a full bleed image with this overlay in mind.</p>
+  </div>
+
+</div>
+
+<div class="doc-footer">
+  <span>InvestPuppy · Unvarnished series · UNV-10 cover photograph brief</span>
+  <span>Internal · May 2026</span>
+</div>
+
+</div>
+</body>
+</html>

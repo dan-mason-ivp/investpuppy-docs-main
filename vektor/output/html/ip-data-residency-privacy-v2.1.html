@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Residency and Privacy — InvestPuppy v2.1</title>
+<style>
+:root {
+  --navy: #1A3A5C;
+  --dark: #1A1A1A;
+  --mid: #333333;
+  --sub: #666666;
+  --gold: #C8A96E;
+  --light: #FDF9F2;
+  --green: #2E7D32;
+  --green-bg: #E8F5E9;
+  --blue: #1A3A5C;
+  --blue-bg: #E3F2FD;
+  --orange: #E65100;
+  --orange-bg: #FFF3E0;
+  --red: #C62828;
+  --red-bg: #FFEBEE;
+  --warn-bg: #FFF8E1;
+  --warn-col: #F57F17;
+  --note-bg: #F4F6F9;
+  --row1: #FDF9F2;
+  --row2: #ffffff;
+  --border: #DDDDDD;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--mid);
+  background: #f7f7f7;
+  padding: 0;
+}
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  background: white;
+  padding: 0 0 40px 0;
+}
+/* Header bar */
+.doc-header {
+  background: var(--navy);
+  color: white;
+  padding: 10px 24px;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.doc-header .right { opacity: 0.7; }
+/* Cover */
+.cover {
+  padding: 32px 24px 24px;
+  border-bottom: 3px solid var(--navy);
+}
+.cover .eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.cover h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.cover .subtitle {
+  font-size: 13px;
+  color: var(--sub);
+  font-style: italic;
+  margin-bottom: 4px;
+}
+.cover .meta {
+  font-size: 11px;
+  color: var(--sub);
+  margin-bottom: 16px;
+}
+.cover .legal {
+  font-size: 11px;
+  color: var(--sub);
+  font-style: italic;
+  background: var(--light);
+  padding: 10px 14px;
+  border-left: 3px solid var(--gold);
+  margin-bottom: 10px;
+  border-radius: 0 4px 4px 0;
+}
+.cover .scope {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+/* Content area */
+.content { padding: 0 24px; }
+/* Callout */
+.callout {
+  background: var(--light);
+  border-left: 3px solid var(--navy);
+  padding: 12px 16px;
+  margin: 12px 0;
+  border-radius: 0 4px 4px 0;
+}
+.callout p {
+  font-size: 13px;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.callout p:last-child { margin-bottom: 0; }
+.callout .callout-bold { font-weight: 600; }
+/* Headings */
+h2.section {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 20px 0 6px;
+  margin: 0 0 8px;
+  border-bottom: 2px solid var(--navy);
+}
+h3.sub {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 16px 0 6px;
+}
+h4.sub2 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 12px 0 4px;
+}
+p { margin-bottom: 8px; font-size: 13px; }
+ul, ol { padding-left: 20px; margin-bottom: 8px; }
+li { margin-bottom: 4px; font-size: 13px; }
+/* Notes and warnings */
+.note {
+  background: var(--note-bg);
+  border-left: 3px solid var(--gold);
+  padding: 8px 12px;
+  margin: 8px 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 12px;
+  color: var(--sub);
+  font-style: italic;
+}
+.warn {
+  background: var(--red-bg);
+  border-left: 3px solid var(--red);
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 12px;
+  color: var(--red);
+  font-weight: 600;
+}
+/* Tables */
+.tbl-wrap { overflow-x: auto; margin: 10px 0 14px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+th {
+  background: var(--navy);
+  color: white;
+  text-align: left;
+  padding: 7px 9px;
+  font-weight: 600;
+  font-size: 11px;
+}
+td {
+  padding: 6px 9px;
+  border: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.45;
+}
+tr:nth-child(odd) td { background: var(--row1); }
+tr:nth-child(even) td { background: var(--row2); }
+/* Classification badges */
+.cls { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 11px; font-weight: 700; }
+.cls-PUB      { background: var(--green-bg); color: var(--green); }
+.cls-PROP     { background: var(--blue-bg); color: var(--blue); }
+.cls-PSEUDO   { background: var(--orange-bg); color: var(--orange); }
+.cls-PII      { background: var(--red-bg); color: var(--red); }
+.cls-BOUNDARY { background: var(--warn-bg); color: var(--warn-col); }
+.cls-cat-Public      { font-weight: 700; color: var(--green); }
+.cls-cat-Proprietary { font-weight: 700; color: var(--blue); }
+.cls-cat-Pseudonymised{ font-weight: 700; color: var(--orange); }
+.cls-cat-PII-Only    { font-weight: 700; color: var(--red); }
+/* Priority badges */
+.pri { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 700; }
+.pri-P1 { background: var(--red-bg); color: var(--red); }
+.pri-P2 { background: var(--orange-bg); color: var(--orange); }
+.pri-P3 { background: var(--blue-bg); color: var(--blue); }
+/* Footer */
+.doc-footer {
+  background: var(--navy);
+  color: white;
+  padding: 12px 24px;
+  font-size: 11px;
+  opacity: 0.9;
+  margin-top: 24px;
+}
+/* Posture comparison */
+.posture-tbl td:first-child { font-weight: 600; color: var(--dark); background: var(--row1) !important; }
+/* Responsive */
+@media (max-width: 600px) {
+  .cover h1 { font-size: 20px; }
+  h2.section { font-size: 13px; }
+  td, th { font-size: 11px; padding: 5px 7px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="doc-header">
+  <span>InvestPuppy · Data Residency and Privacy Framework v2.1</span>
+  <span class="right">Internal Reference · Draft · May 2026</span>
+</div>
+
+<div class="cover">
+  <div class="eyebrow">InvestPuppy · Internal Reference</div>
+  <h1>Data Residency and Privacy</h1>
+  <p class="subtitle">A framework for Vektor : Boutique and Vektor : Institutional across target jurisdictions</p>
+  <p class="meta">May 2026 · Version 2.1 · Draft — pending legal counsel review in each jurisdiction</p>
+  <div class="legal">LEGAL DISCLAIMER: This document is InvestPuppy's internal assessment of the applicable data residency and privacy framework. It does not constitute legal advice. No position in this document should be relied upon as a definitive legal position without confirmation by qualified counsel in the relevant jurisdiction.</div>
+  <p class="scope">Scope: this framework applies to both Vektor : Boutique and Vektor : Institutional. Privacy law obligations exist for both channels. The architecture and the level of obligation differ. This document covers both.</p>
+  <div class="callout">
+    <p class="callout-bold">Privacy law applies to BOTH channels. What differs is the compliance architecture and the level of obligation.</p>
+    <p><strong>Vektor : Boutique</strong> — InvestPuppy holds PII. InvestPuppy is a data processor. Standard DPA required with every client.</p>
+    <p><strong>Vektor : Institutional (hybrid)</strong> — InvestPuppy holds only pseudonymised data. PII stays in client's identity vault. DPA obligations materially reduced.</p>
+    <p>This document covers both compliance postures. Do not treat privacy as an institutional-only concern.</p>
+    <p class="callout-bold">⚡ Developers: read Section 9 (Action Summary) first. P1 items require attention before any institutional deployment.</p>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- 1 PURPOSE -->
+<h2 class="section">1 · Purpose and Scope</h2>
+<p>The Vektor platform processes financial data on behalf of wealth management professionals. As the platform distributes across Singapore, Switzerland, the UK, and the Middle East—through both the Vektor : Boutique direct channel and the Vektor : Institutional licensing channel—data residency and privacy requirements are material compliance and commercial considerations for both channels.</p>
+<p>This document addresses:</p>
+<ul>
+  <li>What data the platform holds and processes, classified at the attribute level</li>
+  <li>What the applicable privacy and data residency requirements are in each target jurisdiction</li>
+  <li>The compliance posture for Vektor : Boutique and for Vektor : Institutional</li>
+  <li>What the development team must do to implement these frameworks</li>
+</ul>
+
+<!-- 2 CLASSIFICATION -->
+<h2 class="section">2 · Data Classification Framework</h2>
+<p>The Vektor data model comprises 17 tables across 4 schemas. Classification is at the attribute level—individual fields, not entire tables—consistent with how privacy law defines personal data.</p>
+
+<h3 class="sub">2.1 The Four Categories</h3>
+<div class="tbl-wrap"><table>
+<tr><th>Category</th><th>Protection</th><th>Residence</th><th>Examples</th><th>Legal Basis</th></tr>
+<tr><td><span class="cls-cat-Public">Public</span></td><td>None required</td><td>Cloud, any region</td><td>instrument_master, price_history, exchange_rate tables</td><td>Publicly available market data. No privacy framework applies.</td></tr>
+<tr><td><span class="cls-cat-Proprietary">Proprietary</span></td><td>Contractual</td><td>Cloud with access controls</td><td>strategy_master, strategy_instruments</td><td>Commercial IP. Not personal data. Contractual confidentiality.</td></tr>
+<tr><td><span class="cls-cat-Pseudonymised">Pseudonymised</span></td><td>UUID separation</td><td>Cloud (no PII)</td><td>portfolio_positions, orders, order_events</td><td>UUID-keyed. Not personal data when key held separately. Cloud-safe under GDPR Art.4(5).</td></tr>
+<tr><td><span class="cls-cat-PII-Only">PII Only</span></td><td>DPA (Boutique) or identity vault (Institutional)</td><td>Cloud with DPA / on-prem vault</td><td>customer_name and direct identifiers</td><td>Personal data under all frameworks.</td></tr>
+</table></div>
+
+<h3 class="sub">2.2 Public Reference Data</h3>
+<p>All tables in the market_data schema contain publicly available information: ticker symbols, ISINs, OHLCV price data, exchange rates, and risk-free rates. None is personal data. Cloud-hosted without qualification.</p>
+
+<h3 class="sub">2.3 Proprietary Business Data</h3>
+<p>strategy_master and strategy_instruments contain investment methodology configuration—instrument selections, weights, indicator assignments, backtest results. This is the manager's IP. Not personal data. Protection is contractual. Cloud-hosted.</p>
+<div class="note">Open question for legal review: can InvestPuppy use aggregated, anonymised strategy data across clients to improve the ML model or publish research? The subscription agreement must explicitly permit or prohibit this.</div>
+
+<h3 class="sub">2.4 Pseudonymised Operational Data</h3>
+<p>The operational tables contain portfolio holdings, transactions, and orders keyed to UUID identifiers. Under GDPR Article 4(5), pseudonymisation means data can no longer be attributed to a specific data subject without additional information kept separately. In the hybrid model, the UUID-to-identity mapping is held exclusively in the client's on-premises identity vault. InvestPuppy's cloud holds only UUIDs.</p>
+<div class="note">The Breyer principle (CJEU C-582/14) applies to GDPR-derived frameworks. Singapore courts are not bound by EU precedent—applicability to PDPA requires independent Singapore counsel confirmation. The principle applies to the hybrid model only. In the standard cloud model (Boutique), InvestPuppy holds both UUIDs and PII—the pseudonymisation argument does not apply.</div>
+<div class="note">Aggregate re-identification risk: combinations of operational data may allow inference about the underlying individual (the 'mosaic effect'). Risk is low in a large user base but should be considered below 50 active portfolios.</div>
+
+<h3 class="sub">2.5 Personal Identifying Data (PII Only)</h3>
+<ul>
+  <li><strong>customer_name</strong> — the name of the client or entity</li>
+  <li>Address fields (if implemented)</li>
+  <li>Date of birth (if stored)</li>
+  <li>National identification number, passport number, or equivalent</li>
+  <li>Contact details: phone number, email address</li>
+  <li><strong>portfolio_name</strong> — if it contains client-identifying terms (e.g. 'Chen Family Growth'). Generic names are not PII.</li>
+</ul>
+
+<h3 class="sub">2.6 Boundary Cases Requiring Legal Opinion</h3>
+<div class="warn">⚠ kyc_status: values include 'rejected' which reveals compliance risk characteristics of an individual. Some frameworks may classify this as sensitive data. Treat as PSEUDO pending legal confirmation.</div>
+<div class="warn">⚠ risk_profile: values are conservative/moderate/aggressive financial profiling data. GDPR Recital 71 identifies profiling as a specific concern. May warrant additional safeguards.</div>
+<div class="warn">⚠ broker_order_id: IBKR order references may be traceable to the real client account if InvestPuppy is compelled to disclose them. Potential re-identification path. Legal assessment required.</div>
+
+<!-- 3 IDENTITY VAULT -->
+<h2 class="section">3 · The Identity Vault Architecture (Hybrid Model)</h2>
+<p>The identity vault is the on-premises component of the Vektor : Institutional hybrid deployment. It holds the UUID-to-PII attribute mapping and is the only system that knows the real identity behind a UUID. The following applies only to the hybrid deployment. In the standard cloud model (Boutique), InvestPuppy holds PII directly.</p>
+
+<h3 class="sub">3.1 Concept</h3>
+<p>The vault holds one data type: UUID → {customer_name, address, DOB, national_ID, contact_details}. It does not hold portfolio positions, market data, or operational data. The on-premises footprint is minimal—a purpose-specific key-value store.</p>
+
+<h3 class="sub">3.2 Data Flow</h3>
+<ol>
+  <li><strong>Client onboarding:</strong> UUID generated. UUID sent to Vektor cloud. UUID-to-PII mapping stored only in on-premises vault.</li>
+  <li><strong>Platform operation:</strong> Vektor cloud processes portfolio data using UUIDs only. InvestPuppy's cloud never requests real client identity.</li>
+  <li><strong>Human display:</strong> Admin portal queries the identity vault to resolve UUIDs to real names. Resolution happens within the client's infrastructure.</li>
+  <li><strong>Reporting:</strong> Client reports assembled by combining pseudonymised data from cloud with identity resolution from vault, within the client's infrastructure.</li>
+  <li><strong>Termination:</strong> Vault entries are the client's responsibility. InvestPuppy's cloud data deleted within 30 days of termination.</li>
+</ol>
+
+<h3 class="sub">3.3 Minimum Vault Security Specification</h3>
+<div class="tbl-wrap"><table>
+<tr><th>Requirement</th><th>Specification</th></tr>
+<tr><td>Encryption at rest</td><td>AES-256 minimum. All vault data encrypted at rest including backups.</td></tr>
+<tr><td>Encryption in transit</td><td>TLS 1.2 minimum for all API communications between vault and Vektor cloud.</td></tr>
+<tr><td>Access controls</td><td>Role-based access. Named authorised personnel only. All access logged with timestamp, user, and action.</td></tr>
+<tr><td>Network isolation</td><td>Vault must not be internet-accessible. All connections via authenticated, encrypted private channel (VPN or PrivateLink).</td></tr>
+<tr><td>Audit logging</td><td>Every UUID-to-identity lookup logged. Retention: minimum 5 years (MAS Singapore), 6 years (FCA UK), 10 years (FINMA Switzerland). Confirm applicable period with counsel.</td></tr>
+<tr><td>Backup and recovery</td><td>Daily encrypted backups. RTO and RPO defined in the implementation statement of work.</td></tr>
+<tr><td>Penetration testing</td><td>Annual security testing by client's IT security team or InvestPuppy's appointed auditor.</td></tr>
+</table></div>
+
+<h3 class="sub">3.4 The Claim It Enables</h3>
+<div class="callout">
+  <p class="callout-bold">"No InvestPuppy system ever processes your clients' names, addresses, or identifying information. Your client identities never leave your infrastructure. What we process in the cloud is pseudonymised portfolio data and public market data. The link between our reference codes and your real clients exists only in a system you control."</p>
+</div>
+<p>This claim is structural, not policy-based. It cannot be violated by a configuration error or security breach on InvestPuppy's side. A breach of InvestPuppy's cloud infrastructure does not result in personal data exposure and therefore may not trigger regulatory breach notification obligations or associated fines.</p>
+
+<!-- 4 COMPLIANCE POSTURE -->
+<h2 class="section">4 · Compliance Posture by Channel</h2>
+<p>Both channels are subject to privacy law. The architecture and the level of obligation differ.</p>
+
+<div class="tbl-wrap"><table class="posture-tbl">
+<tr><th style="width:22%">Dimension</th><th>Vektor : Boutique (Standard Cloud)</th><th>Vektor : Institutional (Hybrid)</th></tr>
+<tr><td>InvestPuppy role</td><td>Data processor of PII</td><td>Processor of pseudonymised data only</td></tr>
+<tr><td>Personal data held</td><td>Yes — customer_name and other PII in cloud</td><td>No — PII in client identity vault only</td></tr>
+<tr><td>DPA required</td><td>Yes — required with every client</td><td>Reduced or not required; confirm with counsel</td></tr>
+<tr><td>Breach notification</td><td>Must notify if cloud breached and PII involved</td><td>Breach does not involve PII — obligation reduced or eliminated</td></tr>
+<tr><td>Data subject rights</td><td>InvestPuppy assists controller in responding</td><td>Controller responds from vault; InvestPuppy holds no personal data</td></tr>
+<tr><td>Data retention</td><td>Must apply retention limits to PII held</td><td>No PII to retain; vault retention is client responsibility</td></tr>
+<tr><td>Cyber liability</td><td>Breach involves PII — potential regulatory fine</td><td>Breach does not involve PII — materially reduced exposure</td></tr>
+<tr><td>Regional deployment</td><td>AWS region matched to client jurisdiction</td><td>Same, plus identity vault on client infrastructure</td></tr>
+<tr><td>Procurement pathway</td><td>Full TRM/DPO vendor assessment. Typical: 4–6 months</td><td>Simplified as non-PII processor. Typical: 4–6 weeks</td></tr>
+<tr><td>Commercial model</td><td>Standard subscription</td><td>Premium tier — higher implementation and platform fee</td></tr>
+</table></div>
+
+<h3 class="sub">4.1 Vektor : Boutique — Standard Cloud Compliance Requirements</h3>
+<p>The following are compliance requirements—not options—before the Vektor : Boutique channel distributes in any jurisdiction.</p>
+<ul>
+  <li><strong>Data Processing Agreement (DPA).</strong> Required with every boutique subscriber. InvestPuppy as processor, client as controller. Must cover: processing purposes, data categories, security measures, sub-processors, data subject rights, breach notification, and termination.</li>
+  <li><strong>Sub-processor disclosure.</strong> InvestPuppy uses AWS (cloud infrastructure) and AWS SageMaker (ML inference) as sub-processors. The DPA must name these and the client must consent.</li>
+  <li><strong>Regional cloud deployment.</strong> Singapore clients: AWS ap-southeast-1. Swiss clients: eu-central-2 (Zurich). UK clients: eu-west-2 (London).</li>
+  <li><strong>Data breach notification.</strong> InvestPuppy must notify the supervisory authority and affected clients if its cloud is breached and PII is involved. Timelines: 72 hours (UK GDPR, nDSG); 3 days (PDPA Singapore).</li>
+  <li><strong>Data subject rights.</strong> InvestPuppy must assist the data controller in responding to subject access, correction, and deletion requests within prescribed timeframes.</li>
+  <li><strong>Data retention.</strong> PII may not be retained beyond the period necessary. Subscription termination triggers a data deletion obligation.</li>
+  <li><strong>Data Protection Officer.</strong> GDPR, nDSG, and other frameworks require or recommend a DPO as InvestPuppy grows. Not required at launch but should be in the compliance roadmap.</li>
+</ul>
+<div class="note">⚡ Action: The DPA template for Vektor : Boutique is a missing document. It must be produced, reviewed by Singapore and Swiss counsel as first-priority jurisdictions, and signed by every client before they subscribe. This is a pre-distribution requirement.</div>
+
+<h3 class="sub">4.2 Data Subject Rights — Both Channels</h3>
+<div class="tbl-wrap"><table>
+<tr><th>Right</th><th>Vektor : Boutique</th><th>Vektor : Institutional (Hybrid)</th></tr>
+<tr><td>Right to access</td><td>InvestPuppy responds with PII it holds in cloud.</td><td>Institution responds from vault; InvestPuppy provides pseudonymised portfolio data only.</td></tr>
+<tr><td>Right to rectification</td><td>InvestPuppy corrects PII in cloud on instruction.</td><td>Institution corrects vault entry; InvestPuppy updates pseudonymised records.</td></tr>
+<tr><td>Right to erasure</td><td>InvestPuppy deletes PII from cloud on valid request.</td><td>Institution deletes vault entry; InvestPuppy deletes pseudonymised records.</td></tr>
+<tr><td>Right to portability</td><td>InvestPuppy provides PII and portfolio data in structured format.</td><td>Institution provides PII from vault; InvestPuppy provides pseudonymised portfolio data.</td></tr>
+<tr><td>Response timeline</td><td colspan="2">Typically 30 days from request. DPA must specify InvestPuppy's alignment with the controller's obligations.</td></tr>
+</table></div>
+
+<h3 class="sub">4.3 Data Breach Notification — Comparison</h3>
+<div class="tbl-wrap"><table>
+<tr><th>Scenario</th><th>Description</th></tr>
+<tr><td><strong>Cloud breach, Boutique</strong></td><td>InvestPuppy's cloud holds PII. Breach constitutes a personal data breach. Notification required: 72 hours (UK GDPR, nDSG), 3 days (PDPA). Potential regulatory fine.</td></tr>
+<tr><td><strong>Cloud breach, Institutional hybrid</strong></td><td>InvestPuppy's cloud holds pseudonymised data only. Breach does not constitute a personal data breach. Notification obligation may not apply. Fine exposure materially reduced.</td></tr>
+<tr><td><strong>Identity vault breach</strong></td><td>Client is the data controller. Notification is their obligation. InvestPuppy's cloud data is unaffected.</td></tr>
+<tr><td><strong>Jurisdiction timelines</strong></td><td>Singapore PDPA: 3 calendar days. UK GDPR: 72 hours to ICO. nDSG Switzerland: 72 hours to FDPIC. DIFC DPL: 72 hours to DIFC Commissioner.</td></tr>
+</table></div>
+
+<!-- 5 JURISDICTION -->
+<h2 class="section">5 · Jurisdiction-by-Jurisdiction Analysis</h2>
+<div class="tbl-wrap"><table>
+<tr><th>Jurisdiction</th><th>Primary Law</th><th>Personal Data</th><th>Transfer Rules</th><th>On-Prem Required</th></tr>
+<tr><td><strong>Singapore</strong></td><td>PDPA 2012 (amended 2021); MAS TRM 2021</td><td>Any information about an identified or identifiable individual (PDPA s2)</td><td>No general localisation. Cross-border with adequate protection.</td><td>Not required. AWS ap-southeast-1. DPA required.</td></tr>
+<tr><td><strong>Switzerland</strong></td><td>nDSG (Sep 2023); FINMA Circ. 2023/1</td><td>All information relating to an identified or identifiable natural person (Art.5(a))</td><td>Cross-border to countries with adequate protection or safeguards (Art.16).</td><td>Not required. AWS eu-central-2 (Zurich). DPA required.</td></tr>
+<tr><td><strong>UK</strong></td><td>UK GDPR; DPA 2018; FCA SYSC 8 and SYSC 13</td><td>Any information relating to an identified or identifiable natural person (Art.4(1))</td><td>UK adequacy decisions. IDTAs for other transfers. Singapore adequacy: confirm with counsel.</td><td>Not required. AWS eu-west-2 (London). DPA required.</td></tr>
+<tr><td><strong>UAE (DIFC)</strong></td><td>DIFC DPL No.5 of 2020; DFSA Rules</td><td>Any information relating to an identified or identifiable individual (DPL Art.1)</td><td>Transfers to jurisdictions with adequate protection or safeguards.</td><td>Not required for DIFC entities. AWS me-central-1 (UAE, Dubai).</td></tr>
+<tr><td><strong>Saudi Arabia</strong></td><td>PDPL Royal Decree M/19 (Sep 2023); SAMA Cloud Framework</td><td>Data concerning an identified or identifiable natural person (PDPL Art.2)</td><td>Strict localisation. Personal data of Saudi nationals must remain in Saudi Arabia.</td><td>Effectively required. AWS Saudi region (me-central-1 KSA) under construction.</td></tr>
+</table></div>
+
+<h3 class="sub">5.1 Singapore — PDPA 2012 (amended 2021)</h3>
+<p>The PDPA's broader definition — data identifiable "from that data and other information to which the organisation <em>has or is likely to have access</em>" — may affect the pseudonymisation argument. Singapore counsel confirmation is specifically required against this definition.</p>
+<p>2021 amendments: mandatory breach notification (3 calendar days), enhanced penalties (up to SGD 1 million or 10% of annual turnover). Under the pseudonymised model (Institutional), InvestPuppy's MAS TRM vendor classification shifts from 'personal data processor' to 'market data and computation service provider.'</p>
+
+<h3 class="sub">5.2 Switzerland — nDSG (September 2023)</h3>
+<p>The nDSG explicitly defines pseudonymisation at Article 5(e). Aligns closely with GDPR. The Breyer principle should apply; Swiss counsel confirmation required. Note: nDSG article numbering should be verified against the enacted text—earlier drafts differed.</p>
+<div class="note">The nDSG identifiability test has not been extensively litigated in Swiss courts. Its scope relative to GDPR is uncertain. Swiss counsel should specifically address whether the identifiability test produces the same result as GDPR on the pseudonymisation position.</div>
+<p><strong>Bankgeheimnis (banking secrecy)</strong> is a professional obligation beyond privacy law. The identity vault model satisfies this: client identities remain exclusively in the IAM's control. Bankgeheimnis also applies to Vektor : Boutique — the DPA for Swiss boutique clients must specifically address banking secrecy obligations. The IAM's supervisory organisation (AO) will typically review the DPA as part of ongoing supervision. FINMA's guidance on cloud use requires the supervised entity to retain control over its data — the hybrid model directly satisfies this.</p>
+
+<h3 class="sub">5.3 United Kingdom — UK GDPR and DPA 2018</h3>
+<p>UK GDPR Art.4(1) and Art.4(5) are identical to EU GDPR. The Breyer principle applies. Singapore's UK adequacy status requires confirmation with UK counsel before transfers of UK-subject personal data to Singapore are relied upon. Where adequacy is absent, IDTAs (International Data Transfer Agreements) are required.</p>
+<p>FCA requirements: PS21/3 (operational resilience), SYSC 8 (outsourcing), SYSC 13 (operational risk) all apply to FCA-regulated boutique clients. UK distribution remains blocked pending the UK-01 FCA legal opinion. Note: the UK-01 FCA opinion and the UK DPA template must be coordinated — the DPA for UK boutique clients must address both UK GDPR and FCA SYSC 8/13 requirements.</p>
+
+<h3 class="sub">5.4 UAE — DIFC</h3>
+<p>DIFC DPL is explicitly modelled on GDPR. Pseudonymisation defined equivalently to GDPR Art.4(5). Breyer principle should apply; DIFC counsel confirmation required. AWS me-central-1 is the UAE-specific region (Dubai). AWS ME-SOUTH-1 is in Bahrain and does not provide UAE data residency.</p>
+<p><strong>Cultural context:</strong> Client confidentiality in Gulf wealth management exceeds regulatory requirements. A family office principal in Dubai (DIFC-regulated) or Abu Dhabi (ADGM-regulated) expects an unqualified answer to "Can your staff see my client names?" The hybrid model provides that answer.</p>
+
+<h3 class="sub">5.5 Saudi Arabia — PDPL and SAMA</h3>
+<p>The PDPL imposes strict localisation: personal data of Saudi nationals must be stored in Saudi Arabia. The identity vault model does not resolve this — the PDPL applies to all personal data about Saudi nationals, potentially including pseudonymised data. Saudi Arabia is not in the near-term target market. Becomes viable when the AWS Saudi Arabia region (me-central-1 KSA) is operational.</p>
+
+<!-- 6 ATTRIBUTE CLASSIFICATION -->
+<h2 class="section">6 · Attribute Classification — Vektor Data Model</h2>
+<p>Field-by-field classification for every table. Add as a classification column in DATA-MODEL-overview. Every new field requires a classification decision before production deployment.</p>
+<div class="callout">
+  <p><span class="cls cls-PUB">PUB</span> — Public. Publicly available. No protection required.</p>
+  <p><span class="cls cls-PROP">PROP</span> — Proprietary. Commercial IP. Contractual confidentiality. Cloud.</p>
+  <p><span class="cls cls-PSEUDO">PSEUDO</span> — Pseudonymised. UUID-keyed. Not personal data when key held separately. Cloud-safe.</p>
+  <p><span class="cls cls-PII">PII</span> — Personal identifying. DPA (Boutique) or identity vault (Institutional).</p>
+  <p><span class="cls cls-BOUNDARY">BOUNDARY</span> — Classification requires legal opinion. See Section 2.6.</p>
+</div>
+
+<h4 class="sub2">market_data Schema</h4>
+<div class="tbl-wrap"><table>
+<tr><th>Table</th><th>Field(s)</th><th>Class</th></tr>
+<tr><td>instrument_master</td><td>All fields (symbol, isin, instrument_name, instrument_type, exchange_code, currency, country_code, sector, industry, market_cap_usd, is_active)</td><td><span class="cls cls-PUB">PUB</span></td></tr>
+<tr><td>price_history</td><td>All fields (price_date, open_price, high_price, low_price, close_price, volume, adjusted_close)</td><td><span class="cls cls-PUB">PUB</span></td></tr>
+<tr><td>exchange_rate_master / history</td><td>All fields</td><td><span class="cls cls-PUB">PUB</span></td></tr>
+<tr><td>risk_free_rate_master / history</td><td>All fields</td><td><span class="cls cls-PUB">PUB</span></td></tr>
+</table></div>
+
+<h4 class="sub2">customer_data Schema</h4>
+<div class="tbl-wrap"><table>
+<tr><th>Table</th><th>Field(s)</th><th>Class</th></tr>
+<tr><td>customer_master</td><td>customer_id (UUID PK)</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+<tr><td>customer_master</td><td>customer_name</td><td><span class="cls cls-PII">PII</span></td></tr>
+<tr><td>customer_master</td><td>customer_type, onboarding_date, base_currency, status, created_at</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+<tr><td>customer_master</td><td>kyc_status</td><td><span class="cls cls-BOUNDARY">BOUNDARY</span></td></tr>
+<tr><td>customer_master</td><td>risk_profile</td><td><span class="cls cls-BOUNDARY">BOUNDARY</span></td></tr>
+<tr><td>customer_master</td><td>[address, DOB, national_ID, phone, email if added]</td><td><span class="cls cls-PII">PII</span></td></tr>
+<tr><td>customer_portfolio_mapping</td><td>All fields — UUID references only</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+</table></div>
+
+<h4 class="sub2">portfolio_data Schema</h4>
+<div class="tbl-wrap"><table>
+<tr><th>Table</th><th>Field(s)</th><th>Class</th></tr>
+<tr><td>portfolio_master</td><td>portfolio_id (UUID PK), customer_id (UUID FK)</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+<tr><td>portfolio_master</td><td>portfolio_name</td><td><span class="cls cls-BOUNDARY">BOUNDARY</span> — PII if client-identifying; PSEUDO if generic</td></tr>
+<tr><td>portfolio_master</td><td>strategy_id, base_currency, total_capital, cash_balance, risk_tolerance, is_active, optimization_weights</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+<tr><td>portfolio_positions</td><td>All fields (position_id, portfolio_id, instrument_id, weights, quantities, costs, values, signals)</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+<tr><td>cash_accounts, cash_movements, instrument_movements</td><td>All fields</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+<tr><td>strategy_master, strategy_instruments</td><td>All fields</td><td><span class="cls cls-PROP">PROP</span></td></tr>
+</table></div>
+
+<h4 class="sub2">trade_data Schema</h4>
+<div class="tbl-wrap"><table>
+<tr><th>Table</th><th>Field(s)</th><th>Class</th></tr>
+<tr><td>orders</td><td>order_id, portfolio_id, customer_id, instrument_id (all UUIDs)</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+<tr><td>orders</td><td>symbol, exchange</td><td><span class="cls cls-PUB">PUB</span></td></tr>
+<tr><td>orders</td><td>side, quantity, order_type, limit_price, status, ml_signal, ml_confidence, fill_price, fill_quantity, commission, all timestamps</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+<tr><td>orders</td><td>broker_order_id</td><td><span class="cls cls-BOUNDARY">BOUNDARY</span></td></tr>
+<tr><td>orders</td><td>error_message (if contains client name)</td><td><span class="cls cls-PII">PII</span></td></tr>
+<tr><td>order_events</td><td>order_id, status_from, status_to, created_at</td><td><span class="cls cls-PSEUDO">PSEUDO</span></td></tr>
+<tr><td>order_events</td><td>event_data (JSONB) — <strong>AUDIT REQUIRED</strong></td><td><span class="cls cls-BOUNDARY">BOUNDARY</span> — see P1 Section 7</td></tr>
+</table></div>
+
+<!-- 7 DEV QUESTIONS -->
+<h2 class="section">7 · Open Questions for the Development Team</h2>
+<p>P1 = critical before any institutional deployment. P2 = required before production go-live. P3 = design decisions.</p>
+<div class="tbl-wrap"><table>
+<tr><th style="width:6%">Pri</th><th style="width:18%">Component</th><th>Question / Decision Required</th><th style="width:22%">Status</th></tr>
+<tr><td><span class="pri pri-P1">P1</span></td><td>event_data JSONB audit</td><td>The order_events table stores event_data as JSONB. If this field contains customer names or portfolio names as text strings, personal data is currently in the cloud without the protections this framework describes. Audit every event_data entry type immediately. This is a live potential PII exposure.</td><td>CRITICAL — audit before institutional deployment</td></tr>
+<tr><td><span class="pri pri-P1">P1</span></td><td>Slack notifications audit</td><td>Do trade signal, order status, or portfolio activity Slack notifications contain customer names, portfolio names, or other identifying information? If so, Slack is a PII exposure channel outside the cloud architecture.</td><td>CRITICAL — audit before institutional deployment</td></tr>
+<tr><td><span class="pri pri-P1">P1</span></td><td>error_message field audit</td><td>The orders table contains an error_message field. Audit whether this field stores customer names or other PII as text. If so, this is a live PII exposure alongside event_data JSONB.</td><td>CRITICAL — audit before institutional deployment</td></tr>
+<tr><td><span class="pri pri-P1">P1</span></td><td>AWS service outputs audit</td><td>Audit all AWS service outputs for PII: (a) SageMaker inference calls; (b) CloudWatch logs; (c) SQS message bodies; (d) SNS payloads; (e) EventBridge events. Confirm none contain customer_id, portfolio_id, or any PII attribute.</td><td>Needs immediate confirmation</td></tr>
+<tr><td><span class="pri pri-P1">P1</span></td><td>DPA template production</td><td>The Vektor : Boutique standard cloud model requires a Data Processing Agreement with every client. This document does not exist. Must be produced and reviewed by Singapore and Swiss counsel before any boutique distribution.</td><td>Not started — blocks distribution</td></tr>
+<tr><td><span class="pri pri-P2">P2</span></td><td>broker_order_id legal assessment</td><td>IBKR order references may be traceable to the real client account if InvestPuppy is compelled to disclose them. Legal question, not a technical audit. Commission with Singapore and/or UK counsel.</td><td>Legal assessment required</td></tr>
+<tr><td><span class="pri pri-P2">P2</span></td><td>UUID generation in hybrid model</td><td>Who generates the UUID in the hybrid model — client on-prem system or InvestPuppy cloud? Client-side generation provides stronger separation assurance.</td><td>Open decision</td></tr>
+<tr><td><span class="pri pri-P2">P2</span></td><td>Identity vault technology</td><td>What technology for the on-premises identity vault? Options: PostgreSQL with encryption at rest, HashiCorp Vault, Redis encrypted, purpose-built key-value store.</td><td>Open decision</td></tr>
+<tr><td><span class="pri pri-P2">P2</span></td><td>Vault API interface</td><td>Interface between vault and InvestPuppy cloud: UUID lookup, UUID registration, UUID revocation. OpenWealth endpoint or custom API? Must satisfy minimum security specification in Section 3.3.</td><td>Open decision</td></tr>
+<tr><td><span class="pri pri-P2">P2</span></td><td>Admin portal in hybrid model</td><td>Name display currently reads from customer_master in cloud. In hybrid model requires round-trip to vault. Design options: (a) client-side portal rendering, (b) vault-side proxy. What is the latency impact?</td><td>Open decision</td></tr>
+<tr><td><span class="pri pri-P2">P2</span></td><td>portfolio_name enforcement</td><td>If a client names a portfolio with a client-identifying term, portfolio_name becomes PII. Options: (a) enforce non-identifying naming convention, (b) move to vault in hybrid model.</td><td>Open decision</td></tr>
+<tr><td><span class="pri pri-P2">P2</span></td><td>Classification column in DATA-MODEL-overview</td><td>Add PUB / PROP / PSEUDO / PII / BOUNDARY column to every field in DATA-MODEL-overview. Resolve BOUNDARY cases with counsel.</td><td>Documentation task</td></tr>
+<tr><td><span class="pri pri-P3">P3</span></td><td>New field governance</td><td>Define approval workflow for classifying new fields before production deployment. Who decides? What documentation is required?</td><td>Process design</td></tr>
+<tr><td><span class="pri pri-P3">P3</span></td><td>Strategy data aggregate use</td><td>Can InvestPuppy use aggregated anonymised strategy data across clients for ML improvement or research? The subscription agreement must explicitly permit or prohibit this.</td><td>Legal and commercial decision</td></tr>
+</table></div>
+
+<!-- 8 LEGAL REVIEWS -->
+<h2 class="section">8 · Pending Legal Reviews</h2>
+<p>All positions in this document are InvestPuppy's internal assessment only. The following opinions are required before any position is used in commercial documentation, regulatory submissions, or institutional due diligence materials.</p>
+<div class="tbl-wrap"><table>
+<tr><th>Jurisdiction</th><th>Questions Required</th><th>Priority</th></tr>
+<tr><td><strong>Singapore</strong></td><td>(a) PDPA classification of pseudonymised data against the broader 'organisation access' definition in PDPA s2; (b) DPA template review; (c) MAS TRM vendor classification; (d) BOUNDARY field classifications (kyc_status, risk_profile).</td><td>Priority 1</td></tr>
+<tr><td><strong>Switzerland</strong></td><td>(a) nDSG Art.5(e) pseudonymisation applicability; (b) nDSG article numbering verification; (c) DPA template review; (d) FinIA outsourcing classification; (e) Bankgeheimnis implications for Boutique clients.</td><td>Priority 1</td></tr>
+<tr><td><strong>UK</strong></td><td>(a) UK GDPR pseudonymisation position; (b) FCA regulated activity status (UK-01); (c) Singapore UK adequacy status; (d) DPA template review. Note: UK-01 FCA opinion and UK DPA template must be coordinated — the DPA must address both UK GDPR and FCA SYSC 8/13 requirements.</td><td>Post-raise</td></tr>
+<tr><td><strong>UAE / DIFC</strong></td><td>(a) DIFC DPL pseudonymisation position; (b) AWS me-central-1 adequacy for DIFC residency; (c) whether hybrid model eliminates Data Processing Contract requirement; (d) ADGM DPR analysis when ADGM prospects identified.</td><td>On first DIFC conversation</td></tr>
+<tr><td><strong>Saudi Arabia</strong></td><td>(a) PDPL localisation requirements for pseudonymised data; (b) SAMA tier classification; (c) AWS Saudi region status and timeline.</td><td>When Saudi Arabia enters near-term plan</td></tr>
+</table></div>
+
+<!-- 9 ACTION SUMMARY -->
+<h2 class="section">9 · Action Summary for Development Team</h2>
+<p><strong>If you are reading this document as a developer, start here before reading the full analysis.</strong> Complete all P1 items before any institutional deployment begins.</p>
+
+<h3 class="sub">P1 — Critical: Before Any Institutional Deployment</h3>
+<ol>
+  <li><strong>Audit event_data JSONB.</strong> Check every event_data entry type in order_events for PII content. If any contain customer or portfolio names as text, this is a live PII exposure requiring immediate remediation.</li>
+  <li><strong>Audit error_message field.</strong> Check the orders table error_message field for PII content. Remediate if PII found.</li>
+  <li><strong>Audit all AWS service outputs.</strong> Verify that no SageMaker inference call, CloudWatch log, SQS message, SNS payload, or EventBridge event includes customer_id, portfolio_id, or any PII attribute.</li>
+  <li><strong>Audit Slack notifications.</strong> Confirm whether trade signal, order status, or portfolio activity notifications contain customer names or other PII.</li>
+  <li><strong>Produce DPA template.</strong> The Vektor : Boutique standard cloud model cannot distribute without a Data Processing Agreement. Commission Singapore and Swiss counsel to produce and review a standard template.</li>
+</ol>
+
+<h3 class="sub">P2 — Required: Before Production Go-Live</h3>
+<ol>
+  <li><strong>Add classification column to DATA-MODEL-overview.</strong> PUB / PROP / PSEUDO / PII / BOUNDARY for every field. Resolve BOUNDARY cases with counsel.</li>
+  <li><strong>Design the identity vault architecture.</strong> Resolve UUID generation, vault technology, and vault API interface. Document minimum security specification compliance.</li>
+  <li><strong>Design admin portal for hybrid model.</strong> Resolve name display architecture for the hybrid deployment.</li>
+  <li><strong>Define portfolio_name convention.</strong> Enforce non-identifying naming or move to vault.</li>
+  <li><strong>Address broker_order_id classification.</strong> Commission legal opinion per jurisdiction.</li>
+  <li><strong>Define new field governance process.</strong> Classification decision workflow before any new field enters production.</li>
+</ol>
+
+<h3 class="sub">P3 — Design Decisions</h3>
+<ol>
+  <li><strong>Resolve strategy data aggregate use.</strong> Decision and subscription agreement clause.</li>
+  <li><strong>Encryption at rest for pseudonymised data.</strong> Confirm as best practice regardless of legal requirement.</li>
+</ol>
+
+</div><!-- /content -->
+
+<div class="doc-footer">
+  <p>InvestPuppy · investpuppy.com · Internal Reference · Version 2.1 · May 2026</p>
+  <p style="opacity:0.7;font-style:italic;margin-top:4px">Internal only · Pending legal review · Not for external distribution · Store in internal/regulatory/</p>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>

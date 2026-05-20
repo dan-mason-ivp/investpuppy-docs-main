@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Figma Step-by-Step — Vektor &amp; Tenzor Marks</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --dark: #0A0A0A; --gold: #C8A96E; --platinum: #9EA8B3;
+    --verdigris: #6BAF82; --grey: #444; --light: #888;
+    --rule: #E0DDD8; --bg: #FFFFFF; --tint: #F7F5F0;
+    --tint2: #EEEAE2; --green: #85D155; --amber: #C4882A;
+    --figma: #1E1E1E; --figma-accent: #18A0FB;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400; font-size: 9.5pt;
+    color: var(--grey); background: var(--bg);
+    line-height: 1.6; max-width: 860px;
+    margin: 0 auto; padding: 0;
+  }
+
+  /* COVER */
+  .cover {
+    background: var(--dark); color: white;
+    padding: 48px 48px 40px; position: relative;
+  }
+  .cover-bar { position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold); }
+  .cover-stamp { font-size:7pt;letter-spacing:.15em;color:#555;margin-bottom:36px; }
+  .cover-title { font-weight:600;font-size:22pt;color:white;line-height:1.2;margin-bottom:6px; }
+  .cover-sub { font-weight:300;font-size:11pt;color:var(--platinum);margin-bottom:32px; }
+  .cover-rule { height:1px;background:rgba(200,169,110,.3);margin-bottom:24px; }
+  .cover-meta { display:grid;grid-template-columns:repeat(3,1fr);gap:20px; }
+  .cover-meta label { display:block;font-size:6.5pt;letter-spacing:.14em;color:#555;margin-bottom:3px; }
+  .cover-meta span { font-size:8.5pt;color:white;font-weight:400; }
+  .cover-note {
+    margin-top:28px;padding:10px 14px;
+    border:1px solid rgba(200,169,110,.2);border-radius:3px;
+    font-size:7.5pt;color:#777;line-height:1.5;
+  }
+  .cover-note strong { color:var(--gold);font-weight:500; }
+
+  /* BODY */
+  .wrap { padding: 0 44px 44px; }
+
+  /* PART DIVIDERS */
+  .part {
+    background: var(--dark); color: white;
+    padding: 12px 44px; margin: 0 -44px 0;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .part-num { font-size:7pt;letter-spacing:.15em;color:var(--gold);font-weight:500; }
+  .part-title { font-size:11pt;font-weight:600; }
+  .part-sub { font-size:8pt;font-weight:300;color:#888;margin-left:auto; }
+
+  /* SECTION */
+  .section { margin-top:32px; }
+  .section-header {
+    display:flex;align-items:center;gap:12px;
+    padding-bottom:8px;border-bottom:1.5px solid var(--dark);
+    margin-bottom:18px;
+  }
+  .section-num { font-size:7pt;letter-spacing:.14em;color:var(--light);min-width:24px; }
+  .section-title { font-size:10pt;font-weight:600;color:var(--dark);letter-spacing:.03em; }
+
+  /* STEPS */
+  .steps { counter-reset: steps; }
+  .step {
+    display:grid;grid-template-columns:28px 1fr;
+    gap:0 14px;margin-bottom:14px;
+    align-items:start;
+  }
+  .step-num {
+    counter-increment: steps;
+    width:24px;height:24px;border-radius:50%;
+    background:var(--dark);color:white;
+    font-size:8pt;font-weight:600;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;margin-top:1px;
+  }
+  .step-body { font-size:9pt;line-height:1.6; }
+  .step-body p { margin-bottom:6px; }
+  .step-body p:last-child { margin-bottom:0; }
+  .step-body strong { font-weight:600;color:var(--dark); }
+
+  /* FIGMA UI LABELS */
+  kbd {
+    display:inline-block;
+    font-family:'Courier New',monospace;font-size:7.5pt;
+    background:var(--figma);color:#e8e8e8;
+    padding:2px 6px;border-radius:3px;margin:0 1px;
+    letter-spacing:0;
+  }
+  .panel {
+    display:inline-block;font-size:7.5pt;font-weight:600;
+    background:var(--tint2);color:var(--dark);
+    padding:1px 6px;border-radius:3px;
+    border:1px solid var(--rule);
+  }
+  .value {
+    display:inline-block;font-family:'Courier New',monospace;
+    font-size:7.5pt;background:#EEF7FF;color:#0066CC;
+    padding:1px 5px;border-radius:3px;
+  }
+
+  /* CALLOUTS */
+  .tip {
+    border-left:3px solid var(--figma-accent);
+    background:var(--tint);padding:10px 14px;
+    border-radius:0 3px 3px 0;margin:12px 0;
+    font-size:8.5pt;line-height:1.6;
+  }
+  .tip.gold { border-color:var(--gold); }
+  .tip.amber { border-color:var(--amber); }
+  .tip.green { border-color:var(--green); }
+  .tip strong { font-weight:600;color:var(--dark); }
+  .tip code { font-family:monospace;font-size:8pt;background:var(--tint2);padding:1px 4px;border-radius:2px; }
+
+  /* SPEC TABLES */
+  table.spec { width:100%;border-collapse:collapse;font-size:8.5pt;margin-bottom:14px; }
+  table.spec th {
+    text-align:left;padding:5px 10px;
+    background:var(--tint2);font-weight:600;font-size:7pt;
+    letter-spacing:.1em;text-transform:uppercase;
+    color:var(--grey);border-bottom:1px solid var(--rule);
+  }
+  table.spec td { padding:6px 10px;border-bottom:1px solid var(--rule);vertical-align:top; }
+  table.spec td:first-child { font-weight:500;color:var(--dark);white-space:nowrap; }
+  table.spec tr:last-child td { border-bottom:none; }
+
+  /* COLOUR CHIPS */
+  .chip {
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:monospace;font-size:8pt;
+    background:var(--tint);padding:3px 8px;
+    border-radius:3px;border:1px solid var(--rule);
+  }
+  .chip-dot { width:10px;height:10px;border-radius:2px;border:1px solid rgba(0,0,0,.1); }
+
+  /* VARIANT CARDS */
+  .variant-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px; }
+  .variant-card {
+    border:1px solid var(--rule);border-radius:4px;padding:12px;
+    background:var(--tint);
+  }
+  .variant-card h4 { font-size:8pt;font-weight:600;color:var(--dark);margin-bottom:6px; }
+  .variant-card ul { list-style:none;font-size:7.5pt;line-height:1.7; }
+  .variant-card ul li::before { content:"· ";color:var(--gold); }
+
+  /* FOOTER */
+  .doc-footer {
+    margin-top:40px;padding:14px 44px;
+    border-top:1px solid var(--rule);
+    display:flex;justify-content:space-between;
+    font-size:7pt;color:var(--light);
+  }
+
+  @media print {
+    .cover,.part { -webkit-print-color-adjust:exact;print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-bar"></div>
+  <div class="cover-stamp">INVESTPUPPY PTE LTD · INTERNAL USE ONLY</div>
+  <div class="cover-title">Figma Step-by-Step</div>
+  <div class="cover-sub">Vektor update · Tenzor new mark · Maker's mark</div>
+  <div class="cover-rule"></div>
+  <div class="cover-meta">
+    <div><label>Audience</label><span>Founder / internal</span></div>
+    <div><label>Date</label><span>May 2026</span></div>
+    <div><label>Status</label><span>Treatment 4b locked May 2026</span></div>
+  </div>
+  <div class="cover-note">
+    <strong>Before you start:</strong> Open your existing Vektor Figma file. Treatment 4b is now locked (May 2026). This guide walks through (A) updating the Vektor maker's mark to the locked Treatment 4b specification, then (B) building the Tenzor mark from scratch. Complete Part A first — it establishes the colour styles and text styles you will reuse for Tenzor.
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ════════════════════════════════════════════════
+     SETUP
+════════════════════════════════════════════════ -->
+<div class="part">
+  <span class="part-num">SETUP</span>
+  <span class="part-title">File & Style Setup</span>
+  <span class="part-sub">Do this once before anything else</span>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">S1</span>
+    <span class="section-title">Create or verify colour styles</span>
+  </div>
+  <div class="tip gold"><strong>Why this matters:</strong> Colour styles mean every element in both marks updates instantly if a colour ever changes. Do this before drawing anything.</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>In the Figma toolbar, click the <panel>Assets</panel> panel (or press <kbd>Shift+I</kbd>). Go to <panel>Libraries</panel> → <panel>Local styles</panel>.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Click the <kbd>+</kbd> next to <panel>Color styles</panel>. Create the following styles — use these exact names and hex values:</p>
+      <table class="spec">
+        <thead><tr><th>Style name</th><th>Hex value</th><th>Used for</th></tr></thead>
+        <tr><td>Brand/Dark</td><td><span class="chip"><span class="chip-dot" style="background:#0A0A0A;"></span><span>#0A0A0A</span></span></td><td>All mark backgrounds</td></tr>
+        <tr><td>Mark/Gold</td><td><span class="chip"><span class="chip-dot" style="background:#C8A96E;"></span><span>#C8A96E</span></span></td><td>Vektor V arrowhead; Tenzor Z letter and crossbar</td></tr>
+        <tr><td>Mark/Platinum</td><td><span class="chip"><span class="chip-dot" style="background:#9EA8B3;"></span><span>#9EA8B3</span></span></td><td>Tenzor wordmark (T E N O R)</td></tr>
+        <tr><td>Maker/Verdigris</td><td><span class="chip"><span class="chip-dot" style="background:#6BAF82;"></span><span>#6BAF82</span></span></td><td>PUPPY in maker's mark</td></tr>
+        <tr><td>Maker/Grey</td><td><span class="chip"><span class="chip-dot" style="background:#AAAAAA;border-color:#ccc;"></span><span>#AAAAAA</span></span></td><td>BY and INVEST in maker's mark</td></tr>
+        <tr><td>Brand/White</td><td><span class="chip"><span class="chip-dot" style="background:#FFFFFF;border-color:#ccc;"></span><span>#FFFFFF</span></span></td><td>Monochrome variant</td></tr>
+      </table>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>If these styles already exist in your Vektor file, verify the hex values match exactly. Rename them if necessary to match the names above — consistent naming is essential as Tenzor is added.</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">S2</span>
+    <span class="section-title">Create text styles</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Select any text layer, then in the right panel click the four-dot grid icon next to the text style field to open <panel>Text styles</panel>. Click <kbd>+</kbd> to create a new style.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Create these text styles. <strong>Note on letter spacing:</strong> Figma expresses letter spacing as a percentage. <span class="value">0.16em = 16%</span>, <span class="value">0.20em = 20%</span>, <span class="value">0.30em = 30%</span>. Enter the % value in the letter spacing field.</p>
+      <table class="spec">
+        <thead><tr><th>Style name</th><th>Font</th><th>Weight</th><th>Letter spacing</th><th>Notes</th></tr></thead>
+        <tr><td>Wordmark/Tenzor</td><td>Montserrat</td><td>Regular (400)</td><td><span class="value">16%</span></td><td>All caps. Used for T E N Z O R letterforms.</td></tr>
+        <tr><td>Maker/INVESTPUPPY</td><td>Poppins</td><td>Regular (400)</td><td><span class="value">20%</span></td><td>Used for INVEST and PUPPY line</td></tr>
+        <tr><td>Maker/BY</td><td>Poppins</td><td>Regular (400)</td><td><span class="value">30%</span></td><td>BY label above. Size = 70% of INVESTPUPPY size.</td></tr>
+      </table>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>These styles capture font and tracking only — not colour. Colour is applied separately per instance so the same style can render in Platinum, Gold, Grey, Verdigris, or White depending on context.</p></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PART A — VEKTOR UPDATE
+════════════════════════════════════════════════ -->
+<div class="part" style="margin-top:32px;">
+  <span class="part-num">PART A</span>
+  <span class="part-title">Update the Vektor Mark</span>
+  <span class="part-sub">Existing file · maker's mark only</span>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">A1</span>
+    <span class="section-title">Locate the existing maker's mark text</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Open your existing Vektor Figma file. In the <panel>Layers</panel> panel, find the frame or group containing the full Vektor mark.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Expand the layer tree and find the text layer that reads <kbd>BY INVESTPUPPY</kbd>. It will currently be a single text layer, left-aligned, in a single grey colour.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>Double-click the text layer on the canvas to enter text editing mode. Confirm it reads exactly <kbd>BY INVESTPUPPY</kbd> as one string. Note the current font size — you will use this to calculate the BY size.</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">A2</span>
+    <span class="section-title">Replace the single-line treatment with Treatment 4b</span>
+  </div>
+  <div class="tip amber"><strong>Do not modify the VEKTOR wordmark or V arrowhead.</strong> Work only on the BY INVESTPUPPY text layer. If the layer is inside a locked group, unlock it first: right-click the group → <panel>Unlock</panel>.</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p><strong>Delete the existing BY INVESTPUPPY text layer.</strong> Take note of its Y position and horizontal centre point before deleting — you will re-create the maker's mark at the same vertical position.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Create a new <panel>Frame</panel> (press <kbd>F</kbd>) at the same Y position. This will be the maker's mark container. Enable <panel>Auto layout</panel> on it: press <kbd>Shift+A</kbd>. Set direction to <panel>Vertical</panel>, alignment to <panel>Centre</panel>, gap between items to <span class="value">2</span>.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>Inside the frame, create the <strong>BY text layer</strong>: press <kbd>T</kbd>, type <kbd>BY</kbd>. Apply style <panel>Maker/BY</panel>. Set font size to <strong>70% of the INVESTPUPPY font size</strong> (e.g. if INVESTPUPPY will be 10px, BY is 7px). Set fill colour to style <panel>Maker/Grey</panel> (<span class="value">#AAAAAA</span>). Set alignment to <panel>Centre</panel>.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><p>Create the <strong>INVESTPUPPY text layer</strong> below BY in the same frame: press <kbd>T</kbd>, type <kbd>INVESTPUPPY</kbd>. Apply style <panel>Maker/INVESTPUPPY</panel>. Set alignment to <panel>Centre</panel>.</p><p>Now select just the characters <kbd>INVEST</kbd> within the text layer and set their fill to <panel>Maker/Grey</panel> (<span class="value">#AAAAAA</span>). Select <kbd>PUPPY</kbd> and set fill to <panel>Maker/Verdigris</panel> (<span class="value">#6BAF82</span>).</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body"><p>Select the auto-layout frame. In <panel>Alignment</panel>, set horizontal alignment to <panel>Centre</panel>. Resize the frame width to match the width of the VEKTOR wordmark above — this ensures the maker's mark centres correctly beneath the wordmark.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-body"><p>Position the maker's mark frame: centre it horizontally to the VEKTOR wordmark group. The vertical position should match where the original BY INVESTPUPPY text sat.</p></div></div>
+  </div>
+  <div class="tip"><strong>Checking alignment:</strong> Select both the VEKTOR wordmark group and the maker's mark frame. Use <panel>Align horizontal centres</panel> in the right panel to confirm they share the same centre axis.</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">A3</span>
+    <span class="section-title">Group and save as component</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Select the VEKTOR wordmark group and the maker's mark frame together. Group them: <kbd>Cmd+G</kbd> (Mac) / <kbd>Ctrl+G</kbd> (Win). Name the group <kbd>Vektor / Standard</kbd>.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Convert to a component: right-click the group → <panel>Create component</panel> (or <kbd>Cmd+Alt+K</kbd> / <kbd>Ctrl+Alt+K</kbd>). This is now the master Vektor mark component.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>Duplicate the component (<kbd>Cmd+D</kbd>) and rename the duplicate <kbd>Vektor / Mono</kbd>. On this variant, select all text elements and set colour to <panel>Brand/White</panel>. This is your monochrome variant — keep it alongside the standard.</p></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PART B — TENZOR NEW MARK
+════════════════════════════════════════════════ -->
+<div class="part" style="margin-top:32px;">
+  <span class="part-num">PART B</span>
+  <span class="part-title">Build the Tenzor Mark</span>
+  <span class="part-sub">New mark from scratch · work at 200px wordmark size</span>
+</div>
+
+<div class="tip gold" style="margin-top:20px;"><strong>Work at 200px font size.</strong> Build the mark large — it is much easier to get the crossbar geometry right at large scale. You will create smaller sizes as component instances later, not by redrawing.</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">B1</span>
+    <span class="section-title">Set up a working frame</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Create a new frame (press <kbd>F</kbd>, drag a rectangle). Set fill to <panel>Brand/Dark</panel> (<span class="value">#0A0A0A</span>). Make it approximately <span class="value">1200 × 600</span> — you will trim it later.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Name this frame <kbd>Tenzor — Working</kbd>. This is your construction area, not the final component.</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">B2</span>
+    <span class="section-title">Create the TENZOR wordmark — letters T, E, N, O, R</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Press <kbd>T</kbd> to create a text layer inside the frame. Type <kbd>TENZOR</kbd>.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Apply the text style <panel>Wordmark/Tenzor</panel> (Montserrat Regular, 16% tracking). Set font size to <span class="value">200</span>.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>Select the entire text and set fill to <panel>Mark/Platinum</panel> (<span class="value">#9EA8B3</span>). All six letters are now platinum.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><p>Double-click the text layer to enter editing mode. Select only the letter <kbd>Z</kbd> (the fourth character). Change its fill to <panel>Mark/Gold</panel> (<span class="value">#C8A96E</span>). Exit text editing mode.</p></div></div>
+  </div>
+  <div class="tip"><strong>Check:</strong> T, E, N, O, R should be Platinum. Z should be Gold. All letters are the same size.</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">B3</span>
+    <span class="section-title">Create the Z crossbar</span>
+  </div>
+  <div class="tip amber"><strong>This is the most precise step.</strong> Take your time. The crossbar is a separate shape layer placed on top of the Z letter — it is not part of the text.</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p><strong>Measure the Z letter bounds.</strong> Click on the TENZOR text layer. In the right panel, note the X, Y, Width and Height of the entire text layer. Then double-click the text to enter editing mode, select just <kbd>Z</kbd>, and note its approximate X position and width. At 200px Montserrat Regular, the Z is approximately 120–130px wide. Exit text editing.</p><p class="tip" style="margin:6px 0;"><strong>Tip:</strong> Place a temporary rectangle over the Z letter to measure its exact bounds. Delete it after.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p><strong>Create the crossbar rectangle.</strong> Press <kbd>R</kbd> and draw a rectangle. Set its dimensions in the right panel:<br>
+      — <strong>Width:</strong> Z_width × 1.16 (Z width plus 8% overhang each side). At ~125px Z width: <span class="value">145px</span>.<br>
+      — <strong>Height:</strong> Font_size × 0.028. At 200px: <span class="value">5.6px</span>. Round to <span class="value">6px</span> for production at this scale.
+    </p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>Set the rectangle fill to <panel>Mark/Gold</panel> (<span class="value">#C8A96E</span>). Remove any border/stroke.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><p><strong>Round the ends.</strong> In the right panel under corner radius, set all four corners to <span class="value">3</span> (half the height, creating a pill shape). At 6px height, set corner radius to <span class="value">3</span>.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body"><p><strong>Position the crossbar.</strong> Place the rectangle centred horizontally on the Z letter. Vertically, position it at 52% of the Z cap-height from the baseline. At 200px Montserrat, the cap-height is approximately 144px — so 52% = ~75px from the baseline of the text layer. Adjust by eye until it sits just above the midpoint of the Z.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-body"><p><strong>Rotate −15°.</strong> With the rectangle selected, in the right panel find the rotation field (the circular arrow icon). Enter <span class="value">-15</span>. The crossbar should now tilt upward from left to right across the Z.</p></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-body"><p><strong>Fine-tune position.</strong> After rotation the crossbar will shift slightly. Re-centre it horizontally on the Z and confirm it still crosses at approximately the mid-height of the letter. Use the canvas zoom (<kbd>Z</kbd>) to get a close view.</p></div></div>
+  </div>
+  <div class="tip"><strong>Visual check:</strong> The crossbar should create a clean diagonal accent across the Z. It should feel like the same visual weight as the Vektor V arrowhead — an accent, not a dominant element. If it looks too heavy, reduce the height slightly.</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">B4</span>
+    <span class="section-title">Group the wordmark</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Select both the TENZOR text layer and the crossbar rectangle. Group them: <kbd>Cmd+G</kbd> / <kbd>Ctrl+G</kbd>. Name the group <kbd>TENZOR wordmark</kbd>.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Confirm the group bounds are tight around the wordmark. If the group has excess whitespace, select it and use <panel>Resize to fit</panel> or manually trim the bounding box.</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">B5</span>
+    <span class="section-title">Add the maker's mark (Treatment 4b)</span>
+  </div>
+  <div class="tip"><strong>This is identical to the process in Part A, Step A2.</strong> You are creating the same maker's mark structure. If you have already done Part A, you can duplicate the maker's mark frame from the Vektor mark and reuse it here — the structure is identical.</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Create a new frame below the wordmark group. Press <kbd>F</kbd>, draw the frame. Enable auto layout (<kbd>Shift+A</kbd>), set to <panel>Vertical</panel>, alignment <panel>Centre</panel>, gap <span class="value">2</span>.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Inside the frame, create the BY text layer: type <kbd>BY</kbd>, apply style <panel>Maker/BY</panel>. Font size = <span class="value">13px</span> (70% of 19px INVESTPUPPY reference at this scale — adjust proportionally if your INVESTPUPPY size differs). Colour: <panel>Maker/Grey</panel>. Alignment: Centre.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>Create the INVESTPUPPY layer: type <kbd>INVESTPUPPY</kbd>, apply style <panel>Maker/INVESTPUPPY</panel>. Font size = <span class="value">19px</span> (approximately 9.5% of 200px wordmark cap-height). Alignment: Centre.</p><p>Select <kbd>INVEST</kbd> → colour <panel>Maker/Grey</panel>. Select <kbd>PUPPY</kbd> → colour <panel>Maker/Verdigris</panel>.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><p>Set the auto-layout frame width to match the wordmark group width. Centre-align horizontally to the wordmark group. Position vertically: gap between bottom of wordmark and top of BY line = approximately 18% of the wordmark font size = <span class="value">36px</span> at 200px scale.</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">B6</span>
+    <span class="section-title">Create the full mark component and variants</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Select both the <kbd>TENZOR wordmark</kbd> group and the maker's mark frame. Group them (<kbd>Cmd+G</kbd>). Name the group <kbd>Tenzor / A — Full mark</kbd>. Convert to component: right-click → <panel>Create component</panel>.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p><strong>Create Variant B (clean, no crossbar).</strong> Duplicate the component (<kbd>Cmd+D</kbd>). Rename it <kbd>Tenzor / B — Clean</kbd>. In this duplicate, find the crossbar rectangle inside the TENZOR wordmark group and delete it. The Z letter retains its gold colour — the only change is removing the crossbar.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p><strong>Create Variant C (monochrome).</strong> Duplicate Variant B. Rename it <kbd>Tenzor / C — Mono white</kbd>. Select all colour-bearing elements and set every fill to <panel>Brand/White</panel> (<span class="value">#FFFFFF</span>): the wordmark letters (T, E, N, Z, O, R), BY, INVEST, and PUPPY. Z retains no crossbar and becomes white. PUPPY becomes white (colour split not used in monochrome).</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><p><strong>Create Variant C black (reversed).</strong> Duplicate Variant C. Rename it <kbd>Tenzor / C — Mono black</kbd>. Set all text fills to <span class="value">#000000</span>. This variant is for use on white/light backgrounds only.</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">B7</span>
+    <span class="section-title">Use Figma component variants to manage all sizes</span>
+  </div>
+  <div class="tip green"><strong>Do not redraw the mark at smaller sizes.</strong> Place component instances and scale them — the proportions hold because everything is built from text styles and relative values. The crossbar will visually thin at smaller sizes because its height formula is proportional to font size.</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>To place a smaller instance: from the <panel>Assets</panel> panel, drag a <kbd>Tenzor / A — Full mark</kbd> component onto the canvas. In the right panel, set the width to your target size while holding <kbd>Shift</kbd> to maintain proportions.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p><strong>At or below 18px wordmark size</strong> — switch to Variant B. Click the placed instance, then in the right panel under <panel>Instance</panel>, swap it to <kbd>Tenzor / B — Clean</kbd>.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>Create a dedicated scale reference page in the file: add a page called <kbd>Scale Reference</kbd>. Place instances of Variant A at each standard size (96px, 72px, 48px, 32px, 22px, 18px) and Variant B at smaller sizes (14px, 10px, 7px) on a dark background frame. This gives you and any collaborators an at-a-glance reference.</p></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PART C — EXPORT
+════════════════════════════════════════════════ -->
+<div class="part" style="margin-top:32px;">
+  <span class="part-num">PART C</span>
+  <span class="part-title">Exporting Assets</span>
+  <span class="part-sub">SVG · PNG · PDF</span>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">C1</span>
+    <span class="section-title">Set up export settings on each component</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Select the master component (e.g. <kbd>Tenzor / A — Full mark</kbd>). In the right panel scroll to <panel>Export</panel>. Click <kbd>+</kbd> to add export settings.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Add the following export settings for each component:
+      <table class="spec" style="margin-top:8px;">
+        <thead><tr><th>Format</th><th>Scale / Size</th><th>Suffix</th></tr></thead>
+        <tr><td>PNG</td><td>1×</td><td>(blank)</td></tr>
+        <tr><td>PNG</td><td>2×</td><td><kbd>@2x</kbd></td></tr>
+        <tr><td>PNG</td><td>4×</td><td><kbd>@4x</kbd></td></tr>
+        <tr><td>SVG</td><td>1×</td><td>(blank)</td></tr>
+        <tr><td>PDF</td><td>1×</td><td>(blank)</td></tr>
+      </table>
+    </p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p>Repeat for all four Tenzor variants and both Vektor variants.</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">C2</span>
+    <span class="section-title">Export</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><p>Select all mark components on the canvas. In the right panel, click <panel>Export</panel> at the bottom. Figma will export all selected layers with all configured export settings in one batch.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><p>Files will be named by layer name + suffix. The layer names <kbd>Tenzor / A — Full mark</kbd> etc. will produce filenames like <kbd>Tenzor / A — Full mark@2x.png</kbd>. Rename to the convention in the brand spec: <kbd>tenzor-A-2x.png</kbd> etc.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><p><strong>SVG check before delivery:</strong> Open each exported SVG in a text editor and confirm there are no embedded fonts (the text should be converted to outlines or the correct font should be referenced). If fonts are embedded, in Figma select all text in the mark, right-click → <panel>Outline stroke</panel> to convert text to paths before exporting SVG.</p></div></div>
+  </div>
+  <div class="tip amber"><strong>Convert text to outlines for production SVG.</strong> For any SVG that will be used in print, embroidery, signage, or any context where Montserrat/Poppins may not be available, text must be outlined first. Keep the editable (live text) version as the master in Figma and outline a copy for each production SVG export.</div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     QUICK REFERENCE
+════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">QR</span>
+    <span class="section-title">Quick Reference — Values at a Glance</span>
+  </div>
+  <table class="spec">
+    <thead><tr><th>Element</th><th>Figma setting</th><th>Value</th></tr></thead>
+    <tr><td>Wordmark font</td><td>Font family / weight</td><td>Montserrat / Regular (400)</td></tr>
+    <tr><td>Wordmark tracking</td><td>Letter spacing (% in Figma)</td><td><span class="value">16%</span></td></tr>
+    <tr><td>T E N O R colour</td><td>Fill → colour style</td><td>Mark/Platinum · <span class="chip"><span class="chip-dot" style="background:#9EA8B3;"></span><span>#9EA8B3</span></span></td></tr>
+    <tr><td>Z letter colour</td><td>Fill → colour style</td><td>Mark/Gold · <span class="chip"><span class="chip-dot" style="background:#C8A96E;"></span><span>#C8A96E</span></span></td></tr>
+    <tr><td>Z crossbar width</td><td>Rectangle width</td><td>Z letter width × 1.16</td></tr>
+    <tr><td>Z crossbar height</td><td>Rectangle height</td><td>Font size × 0.028 (min 2px)</td></tr>
+    <tr><td>Z crossbar corner radius</td><td>Corner radius</td><td>Height ÷ 2</td></tr>
+    <tr><td>Z crossbar rotation</td><td>Rotation</td><td><span class="value">−15°</span></td></tr>
+    <tr><td>Z crossbar vertical position</td><td>Y from text baseline</td><td>52% of cap-height</td></tr>
+    <tr><td>Z crossbar colour</td><td>Fill → colour style</td><td>Mark/Gold · <span class="chip"><span class="chip-dot" style="background:#C8A96E;"></span><span>#C8A96E</span></span></td></tr>
+    <tr><td>BY font</td><td>Font family / weight</td><td>Poppins / Regular (400)</td></tr>
+    <tr><td>BY tracking</td><td>Letter spacing</td><td><span class="value">30%</span></td></tr>
+    <tr><td>BY size</td><td>Font size</td><td>70% of INVESTPUPPY size</td></tr>
+    <tr><td>BY colour</td><td>Fill → colour style</td><td>Maker/Grey · <span class="chip"><span class="chip-dot" style="background:#AAA;border-color:#ccc;"></span><span>#AAAAAA</span></span></td></tr>
+    <tr><td>INVEST tracking</td><td>Letter spacing</td><td><span class="value">20%</span></td></tr>
+    <tr><td>INVEST colour</td><td>Fill → colour style</td><td>Maker/Grey · <span class="chip"><span class="chip-dot" style="background:#AAA;border-color:#ccc;"></span><span>#AAAAAA</span></span></td></tr>
+    <tr><td>PUPPY tracking</td><td>Letter spacing</td><td><span class="value">20%</span></td></tr>
+    <tr><td>PUPPY colour</td><td>Fill → colour style</td><td>Maker/Verdigris · <span class="chip"><span class="chip-dot" style="background:#6BAF82;"></span><span>#6BAF82</span></span></td></tr>
+    <tr><td>BY↔INVESTPUPPY gap</td><td>Auto layout gap</td><td><span class="value">2px</span> at reference size</td></tr>
+    <tr><td>Crossbar variant threshold</td><td>Use Variant A above, B below</td><td><span class="value">18px</span> rendered wordmark size</td></tr>
+    <tr><td>Background</td><td>Frame fill → colour style</td><td>Brand/Dark · <span class="chip"><span class="chip-dot" style="background:#0A0A0A;"></span><span>#0A0A0A</span></span></td></tr>
+  </table>
+</div>
+
+</div><!-- /wrap -->
+
+<div class="doc-footer">
+  <span>InvestPuppy Pte Ltd · Figma Guide · May 2026 · Internal only</span>
+  <span>Treatment 4b locked May 2026</span>
+</div>
+
+</body>
+</html>

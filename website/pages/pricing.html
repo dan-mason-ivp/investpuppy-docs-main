@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing &mdash; Vektor by InvestPuppy</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    /* ── Pricing toggle ──────────────────────────────────────────── */
+    .pricing-mode-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .pricing-mode-bar h4 {
+      margin: 0;
+    }
+    .pricing-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .pricing-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border: 1.5px solid var(--green);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      white-space: nowrap;
+    }
+    .pricing-toggle-btn:hover {
+      background: var(--green);
+      color: #0a0a0a;
+    }
+    .pricing-toggle-btn.active {
+      background: var(--green);
+      color: #0a0a0a;
+    }
+    .pricing-toggle-btn .toggle-icon {
+      font-size: 15px;
+      line-height: 1;
+    }
+    .pp-slots-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--green-bg, #f0f7ea);
+      border: 1px solid var(--green);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ── Table columns ───────────────────────────────────────────── */
+    .pricing-table th,
+    .pricing-table td {
+      transition: opacity 0.2s;
+    }
+    .pricing-table .col-bloomberg { }
+    .pricing-table .col-pp-y1    { display: none; }
+    .pricing-table .col-pp-og    { display: none; }
+
+    /* PP mode */
+    .pricing-table.pp-mode .col-bloomberg { display: none; }
+    .pricing-table.pp-mode .col-pp-y1    { display: table-cell; }
+    .pricing-table.pp-mode .col-pp-og    { display: table-cell; }
+    .pricing-table.pp-mode .col-price th,
+    .pricing-table.pp-mode .col-price td {
+      color: var(--grey);
+      font-weight: 400;
+    }
+
+    /* PP discount badge */
+    .pp-save {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 7px;
+      background: var(--green-bg, #f0f7ea);
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--green);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .pp-tier-a-label {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 7px;
+      background: #fff8e6;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #b8860b;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    /* PP footnote block — hidden by default */
+    .pp-footnote-block {
+      display: none;
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: var(--green-bg, #f0f7ea);
+      border-left: 3px solid var(--green);
+      border-radius: 0 4px 4px 0;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .pricing-table.pp-mode ~ .pp-footnote-block {
+      display: block;
+    }
+
+    /* AUM definition footnote */
+    .aum-footnote {
+      font-size: 12px;
+      color: var(--grey);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* Supplement and wrapped notes */
+    .pricing-note-row {
+      margin-top: 28px;
+      padding: 14px 18px;
+      border: 1px solid var(--border, #e5e5e5);
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .pricing-note-row + .pricing-note-row {
+      margin-top: 12px;
+    }
+    .pricing-note-label {
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .pricing-note-link {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .pricing-note-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="v2-banner">Release v2.0 — Review Build — Not for Distribution · May 2026</div>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a class="navbar__logo" href="/"><img src="/assets/images/IPHorizontalClear.png" alt="InvestPuppy"></a>
+    <button class="navbar__toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="navbar__links">
+      <li><a href="/platform.html">Platform</a></li>
+      <li><a href="/why-vektor.html">Why Vektor</a></li>
+      <li><a href="/how-we-work.html">How We Work</a></li>
+      <li><a href="/unvarnished.html">Unvarnished</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li class="nav-cta"><a href="/proof-partners.html">Proof Partners</a></li>
+    </ul>
+    <div class="ip-currency-wrap">
+      <button class="ip-currency-toggle" aria-label="Select currency">
+        <span class="ip-currency-selected">USD</span>
+      </button>
+      <div class="ip-currency-dropdown">
+        <button class="ip-currency-option active" data-currency="USD">USD — US Dollar</button>
+        <button class="ip-currency-option" data-currency="SGD">SGD — Singapore Dollar</button>
+        <button class="ip-currency-option" data-currency="GBP">GBP — British Pound</button>
+        <button class="ip-currency-option" data-currency="EUR">EUR — Euro</button>
+        <button class="ip-currency-option" data-currency="CHF">CHF — Swiss Franc</button>
+        <button class="ip-currency-option" data-currency="AUD">AUD — Australian Dollar</button>
+        <button class="ip-currency-option" data-currency="HKD">HKD — Hong Kong Dollar</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<main>
+
+<div class="page-hero">
+  <div class="page-hero__tag">Pricing</div>
+  <h1>Published openly.<br>Held consistently.</h1>
+  <p>AUM-tiered annual subscription. Every tier priced against the infrastructure it replaces. No hidden fees, no seat licences, no integration complexity charged separately.</p>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Mode bar: heading + toggle -->
+    <div class="pricing-mode-bar">
+      <div>
+        <h4 id="pricing-mode-label" style="margin-bottom:4px">Standard pricing</h4>
+        <p style="font-size:13px;color:var(--grey);margin:0">All tiers are set against verified 2026 Bloomberg Terminal costs. As your AUM grows, so does your Bloomberg spend — Vektor is priced as a fraction of that at every tier.</p>
+      </div>
+      <div class="pricing-toggle-wrap">
+        <span class="pp-slots-badge" id="pp-slots-badge" style="display:none"></span>
+        <button class="pricing-toggle-btn" id="pp-toggle" aria-pressed="false">
+          <span class="toggle-icon">&#9654;</span>
+          Proof Partner rates
+        </button>
+      </div>
+    </div>
+
+    <!-- Pricing table -->
+    <table class="pricing-table" id="pricing-table">
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>AUM</th>
+          <th class="col-price">Annual price</th>
+          <th class="col-bloomberg">Bloomberg context (2026 verified)</th>
+          <th class="col-pp-y1">PP Year 1</th>
+          <th class="col-pp-og">PP Ongoing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tier">Entry</td>
+          <td id="aum-entry">Up to <span data-ip-code>USD</span> 55M</td>
+          <td class="price col-price">
+            <span data-ip-price="entry">USD 18,000/year</span>
+          </td>
+          <td class="col-bloomberg">Below the cost of a single Bloomberg Terminal seat (USD 32,000/year)</td>
+          <td class="col-pp-y1" id="pp-y1-entry">—</td>
+          <td class="col-pp-og" id="pp-og-entry">—</td>
+        </tr>
+        <tr>
+          <td class="tier">Growth</td>
+          <td id="aum-growth">
+            <span data-ip-code>USD</span> 55M &ndash;
+            <span data-ip-code>USD</span> 185M
+          </td>
+          <td class="price col-price">
+            <span data-ip-price="growth">USD 36,000/year</span>
+          </td>
+          <td class="col-bloomberg">32–63% of a 2–4 seat Bloomberg Terminal bill</td>
+          <td class="col-pp-y1" id="pp-y1-growth">—</td>
+          <td class="col-pp-og" id="pp-og-growth">—</td>
+        </tr>
+        <tr>
+          <td class="tier">Institutional</td>
+          <td id="aum-institutional">
+            <span data-ip-code>USD</span> 185M &ndash;
+            <span data-ip-code>USD</span> 550M
+          </td>
+          <td class="price col-price">
+            <span data-ip-price="institutional">USD 105,000/year</span>
+          </td>
+          <td class="col-bloomberg">Well below a 5–8 seat Bloomberg Terminal deployment</td>
+          <td class="col-pp-y1" id="pp-y1-institutional">—</td>
+          <td class="col-pp-og" id="pp-og-institutional">—</td>
+        </tr>
+        <tr>
+          <td class="tier">Enterprise</td>
+          <td id="aum-enterprise">Over <span data-ip-code>USD</span> 550M</td>
+          <td class="price col-price">
+            <span data-ip-price="enterprise" data-ip-plus="true">USD 175,000/year</span>
+          </td>
+          <td class="col-bloomberg">A fraction of 8–20 seat Bloomberg infrastructure</td>
+          <td class="col-pp-y1" id="pp-y1-enterprise">—</td>
+          <td class="col-pp-og" id="pp-og-enterprise">—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- PP mode footnote — shown only when toggled -->
+    <div class="pp-footnote-block" id="pp-footnote">
+      <strong>Tier A</strong> (AUM below <span data-ip-code>USD</span> 55M at signing):
+      flat rate <span id="pp-tier-a-display">USD 13,500</span>/year — Year 1 and ongoing. &nbsp;
+      <strong>Tier B</strong> (AUM <span data-ip-code>USD</span> 55M+ at signing):
+      rates shown above. Year 1 discount 35% · ongoing discount 20%.
+      <br><br>
+      Preferential commercial terms are locked for the duration of the relationship.
+      <a href="/proof-partners.html" class="pricing-note-link">Full Proof Partner terms &rarr;</a>
+    </div>
+
+    <!-- Bloomberg footnote -->
+    <p style="font-size:12px;color:var(--grey);margin-top:16px">
+      Bloomberg Terminal: approx.
+      <span data-ip-price="bloomberg-seat" data-ip-noyear="true">USD 32,000</span>+
+      per seat per year (2026 verified). Bloomberg PORT: USD 6,000–USD 18,500 additional per seat.
+    </p>
+
+    <!-- AUM definition -->
+    <p class="aum-footnote">
+      <em>AUM definition:</em> AUM means the aggregate value of assets in mandates actively managed using the Vektor platform at the measurement date — not total assets under management.
+    </p>
+
+    <!-- Enterprise supplement -->
+    <div class="pricing-note-row">
+      <span class="pricing-note-label">Enterprise supplement:</span>
+      USD 550M–USD 750M: USD 175,000 &nbsp;·&nbsp;
+      USD 750M–USD 1B: USD 200,000 &nbsp;·&nbsp;
+      Above USD 1B: USD 225,000 or second product conversation.
+      <a href="/proof-partners.html" class="pricing-note-link" style="margin-left:8px">Contact us &rarr;</a>
+    </div>
+
+    <!-- Vektor : Wrapped reference -->
+    <div class="pricing-note-row">
+      <span class="pricing-note-label">Vektor : Wrapped —</span>
+      Institutional channel pricing for custodian bank partners and EAMs.
+      Pricing on application.
+      <a href="/alloy-partners.html" class="pricing-note-link" style="margin-left:4px">Learn more &rarr;</a>
+    </div>
+
+    <!-- Currency note -->
+    <p style="font-size:12px;color:var(--grey);margin-top:20px" data-ip-currency-note>
+      USD prices are the published subscription rates. All subscriptions are quoted and billed in USD.
+    </p>
+
+  </div>
+</section>
+
+<!-- Proof Partner CTA block -->
+<section class="section--sm" id="pp-cta-section" style="background:var(--green-bg);border-top:1px solid var(--green);border-bottom:1px solid var(--green)">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
+      <div>
+        <h4 style="color:var(--green);margin-bottom:8px">Early commitment: Proof Partners</h4>
+        <p style="font-size:14px;color:var(--grey);max-width:580px;margin:0">
+          Proof Partner rates are available for qualified early-commitment clients. Preferential commercial terms locked for the duration of the relationship.
+          <strong id="pp-cta-slots" style="color:var(--text)"></strong>
+        </p>
+      </div>
+      <a href="/proof-partners.html" class="btn btn--green">Become a Proof Partner &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="callout">
+      <p><strong>Pricing philosophy:</strong> Pricing is published openly, held consistently, and applies across all clients. We do not negotiate bespoke rates outside the published tier structure. Proof Partner rates reflect early commitment — preferential terms locked for the duration once agreed.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="footer">
+    <ul class="footer__links">
+      <li><a href="/research.html">Research</a></li>
+      <li><a href="/story.html">Why InvestPuppy</a></li>
+      <li><a href="/documents.html">Documents</a></li>
+      <li><a href="/what-we-are-not.html">What We Are Not</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/how-we-work.html">How We Work</a></li>
+      <li><a href="/proof-partners.html">Proof Partners</a></li>
+      <li><a href="/alloy-partners.html">Alloy Partners</a></li>
+    </ul>
+    <p class="footer__copy">InvestPuppy &middot; investpuppy.com &middot; contact@investpuppy.com</p>
+  </div>
+</footer>
+<script src="/js/scripts.js"></script>
+<script src="/js/prices.js"></script>
+<script src="/js/currency.js"></script>
+<script>
+/* ── Proof Partner pricing toggle ─────────────────────────── */
+(function () {
+  const table   = document.getElementById('pricing-table');
+  const btn     = document.getElementById('pp-toggle');
+  const label   = document.getElementById('pricing-mode-label');
+  const footnote= document.getElementById('pp-footnote');
+  const badge   = document.getElementById('pp-slots-badge');
+  const ctaSlots= document.getElementById('pp-cta-slots');
+  let ppMode    = false;
+
+  /* Slot display -------------------------------------------- */
+  function renderSlots() {
+    if (!IP_PP_CONFIG) return;
+    const remaining = IP_PP_CONFIG.slotsTotal - IP_PP_CONFIG.slotsTaken;
+    const text = remaining === 1
+      ? '1 slot remaining'
+      : `${remaining} slots available`;
+    badge.textContent  = text;
+    ctaSlots.textContent = ` ${text}.`;
+  }
+
+  /* Format a PP price from a standard price ------------------ */
+  function ppPrice(standardKey, currency, discount) {
+    const prices = IP_PRICES[standardKey];
+    if (!prices) return '—';
+    const std = prices[currency] || prices['USD'];
+    const val = Math.round(std * (1 - discount) / 100) * 100;
+    const prefix = currency !== 'USD' ? 'approx.\u00a0' : '';
+    return `${prefix}${currency}\u00a0${val.toLocaleString('en-US')}/year`;
+  }
+
+  function tierAPrice(currency) {
+    const cfg = IP_PP_CONFIG.tierA;
+    const val = cfg[currency] || cfg['USD'];
+    const prefix = currency !== 'USD' ? 'approx.\u00a0' : '';
+    return `${prefix}${currency}\u00a0${val.toLocaleString('en-US')}/year`;
+  }
+
+  /* Render PP cells for current currency -------------------- */
+  function renderPPCells(currency) {
+    const cfg = IP_PP_CONFIG;
+    const tiers = ['growth', 'institutional', 'enterprise'];
+
+    /* Entry row: Tier A flat rate */
+    document.getElementById('pp-y1-entry').innerHTML =
+      tierAPrice(currency) + '<span class="pp-tier-a-label">Tier A — flat</span>';
+    document.getElementById('pp-og-entry').innerHTML =
+      tierAPrice(currency) + '<span class="pp-tier-a-label">Tier A — flat</span>';
+
+    /* Tier B rows */
+    tiers.forEach(tier => {
+      const y1El = document.getElementById(`pp-y1-${tier}`);
+      const ogEl = document.getElementById(`pp-og-${tier}`);
+      if (!y1El || !ogEl) return;
+      y1El.innerHTML = ppPrice(tier, currency, cfg.tierBYear1Discount)
+        + '<span class="pp-save">save 35%</span>';
+      ogEl.innerHTML = ppPrice(tier, currency, cfg.tierBOngoingDiscount)
+        + '<span class="pp-save">save 20%</span>';
+    });
+
+    /* Tier A display in footnote */
+    const taEl = document.getElementById('pp-tier-a-display');
+    if (taEl) taEl.textContent = tierAPrice(currency).replace('/year','').trim();
+  }
+
+  /* Toggle handler ------------------------------------------ */
+  function setMode(on) {
+    ppMode = on;
+    const currency = (typeof ipGetCurrency === 'function') ? ipGetCurrency() : 'USD';
+
+    if (on) {
+      table.classList.add('pp-mode');
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      btn.innerHTML = '<span class="toggle-icon">&#9654;</span> Standard pricing';
+      label.textContent = 'Proof Partner rates';
+      badge.style.display = 'inline-block';
+      renderPPCells(currency);
+    } else {
+      table.classList.remove('pp-mode');
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed', 'false');
+      btn.innerHTML = '<span class="toggle-icon">&#9654;</span> Proof Partner rates';
+      label.textContent = 'Standard pricing';
+      badge.style.display = 'none';
+    }
+  }
+
+  btn.addEventListener('click', () => setMode(!ppMode));
+
+  /* Re-render PP cells when currency changes ---------------- */
+  document.addEventListener('ip:currency-changed', e => {
+    if (ppMode) renderPPCells(e.detail || 'USD');
+  });
+
+  /* Patch ipSetCurrency to fire the event ------------------- */
+  document.addEventListener('DOMContentLoaded', () => {
+    renderSlots();
+    const origSet = window.ipSetCurrency;
+    if (origSet) {
+      window.ipSetCurrency = function(code) {
+        origSet(code);
+        document.dispatchEvent(new CustomEvent('ip:currency-changed', { detail: code }));
+      };
+    }
+  });
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>InvestPuppy — Brand Mark Design Specification</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --dark:       #0A0A0A;
+    --gold:       #C8A96E;
+    --platinum:   #9EA8B3;
+    --verdigris:  #6BAF82;
+    --green:      #85D155;
+    --grey-text:  #444444;
+    --grey-light: #AAAAAA;
+    --rule:       #DDDDDD;
+    --bg:         #FFFFFF;
+    --bg-tint:    #F7F6F3;
+    --bg-dark:    #0A0A0A;
+    --amber:      #C4882A;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 10pt;
+    color: var(--grey-text);
+    background: var(--bg);
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--bg-dark);
+    color: white;
+    padding: 56px 56px 48px;
+    position: relative;
+  }
+  .cover-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--gold);
+  }
+  .cover-stamp {
+    font-size: 7pt;
+    letter-spacing: 0.15em;
+    color: var(--grey-light);
+    margin-bottom: 48px;
+  }
+  .cover-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 26pt;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .cover-sub {
+    font-weight: 400;
+    font-size: 13pt;
+    color: var(--platinum);
+    margin-bottom: 40px;
+  }
+  .cover-rule { height: 1px; background: rgba(200,169,110,0.35); margin-bottom: 28px; }
+  .cover-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .cover-meta-item label {
+    display: block; font-size: 6.5pt; letter-spacing: 0.15em;
+    color: var(--grey-light); margin-bottom: 3px;
+  }
+  .cover-meta-item span {
+    font-size: 9pt; color: white; font-weight: 400;
+  }
+  .cover-notice {
+    margin-top: 40px;
+    padding: 12px 16px;
+    border: 1px solid rgba(200,169,110,0.25);
+    border-radius: 3px;
+    font-size: 7.5pt;
+    color: var(--grey-light);
+    line-height: 1.5;
+  }
+  .cover-notice strong { color: var(--gold); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .body-wrap { padding: 0 48px 48px; }
+
+  /* ── SECTION ── */
+  .section { margin-top: 40px; }
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 0 10px;
+    border-bottom: 1.5px solid var(--dark);
+    margin-bottom: 24px;
+  }
+  .section-num {
+    font-size: 7.5pt; letter-spacing: 0.15em;
+    color: var(--grey-light); font-weight: 400;
+    min-width: 28px;
+  }
+  .section-title {
+    font-size: 11pt; font-weight: 600; color: var(--dark);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── SUBSECTION ── */
+  .subsection { margin-bottom: 24px; }
+  .subsection-title {
+    font-size: 8pt; font-weight: 600; letter-spacing: 0.12em;
+    color: var(--dark); margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  /* ── SPEC TABLE ── */
+  table.spec {
+    width: 100%; border-collapse: collapse;
+    font-size: 8.5pt;
+  }
+  table.spec th {
+    text-align: left; padding: 6px 10px;
+    background: var(--bg-tint);
+    font-weight: 600; font-size: 7pt;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--grey-text); border-bottom: 1px solid var(--rule);
+  }
+  table.spec td {
+    padding: 7px 10px; border-bottom: 1px solid var(--rule);
+    vertical-align: top; line-height: 1.5;
+  }
+  table.spec td:first-child { font-weight: 500; color: var(--dark); white-space: nowrap; }
+  table.spec td code {
+    font-family: 'Courier New', monospace;
+    font-size: 8pt; background: var(--bg-tint);
+    padding: 1px 4px; border-radius: 2px;
+    color: var(--dark);
+  }
+  table.spec tr:last-child td { border-bottom: none; }
+
+  /* ── COLOUR SWATCHES ── */
+  .swatches { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+  .swatch { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+  .swatch-block {
+    width: 56px; height: 40px; border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .swatch-name { font-size: 7pt; font-weight: 600; color: var(--dark); }
+  .swatch-hex  { font-size: 6.5pt; font-family: monospace; color: var(--grey-light); }
+
+  /* ── MARK DEMO BOXES ── */
+  .mark-demo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .mark-demo {
+    background: var(--bg-dark);
+    border-radius: 6px;
+    padding: 24px 20px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0;
+  }
+  .mark-demo-label {
+    font-size: 6.5pt; letter-spacing: 0.12em; color: #555;
+    margin-bottom: 12px; align-self: flex-start;
+    font-weight: 400; text-transform: uppercase;
+  }
+  .mark-wordmark {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    line-height: 1;
+  }
+  .by-block { text-align: center; }
+  .by-line  {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.30em;
+    color: #888;
+    display: block;
+    line-height: 1.3;
+  }
+  .invest-line {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.20em;
+    line-height: 1.2;
+  }
+
+  /* ── SIZE SCALE ── */
+  .scale-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 1fr;
+    border-bottom: 1px solid var(--rule);
+    min-height: 40px;
+  }
+  .scale-row:first-child { border-top: 1px solid var(--rule); }
+  .scale-cell { padding: 12px 14px; }
+  .scale-cell.label { border-right: 1px solid var(--rule); background: var(--bg-tint); }
+  .scale-cell.vektor { border-right: 1px solid var(--rule); display: flex; align-items: center; }
+  .scale-cell.tenzor { display: flex; align-items: center; }
+  .scale-size-name { font-size: 8pt; font-weight: 600; color: var(--dark); }
+  .scale-size-px { font-size: 7pt; font-family: monospace; color: var(--grey-light); }
+  .scale-use { font-size: 7pt; color: var(--grey-light); margin-top: 1px; }
+  .scale-note { font-size: 6.5pt; color: var(--amber); margin-top: 3px; }
+  .threshold-badge {
+    display: inline-block; font-size: 6pt; font-weight: 600;
+    color: var(--gold); background: rgba(200,169,110,0.1);
+    border: 1px solid rgba(200,169,110,0.3);
+    border-radius: 2px; padding: 1px 5px; margin-top: 3px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-left: 3px solid var(--gold);
+    background: var(--bg-tint);
+    padding: 12px 16px;
+    border-radius: 0 3px 3px 0;
+    margin-bottom: 16px;
+    font-size: 8.5pt;
+    line-height: 1.6;
+  }
+  .callout.amber { border-color: var(--amber); }
+  .callout.verdigris { border-color: var(--verdigris); }
+  .callout strong { font-weight: 600; color: var(--dark); }
+
+  /* ── DELIVERABLES ── */
+  .deliverables-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 16px;
+  }
+  .deliverable-card {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 14px 16px;
+    background: var(--bg-tint);
+  }
+  .deliverable-card h4 {
+    font-size: 8pt; font-weight: 600; color: var(--dark);
+    margin-bottom: 6px; letter-spacing: 0.05em;
+  }
+  .deliverable-card ul {
+    list-style: none; font-size: 7.5pt; color: var(--grey-text); line-height: 1.7;
+  }
+  .deliverable-card ul li::before {
+    content: "→ "; color: var(--gold); font-weight: 500;
+  }
+
+  /* ── PROHIBITED ── */
+  .prohibited-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .prohibited-item {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 7.5pt;
+    line-height: 1.5;
+  }
+  .prohibited-item::before {
+    content: "✕ ";
+    color: #c0392b;
+    font-weight: 700;
+  }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    margin-top: 48px;
+    padding: 16px 48px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 7pt;
+    color: var(--grey-light);
+  }
+
+  /* Print */
+  @media print {
+    body { max-width: none; }
+    .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .mark-demo { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .swatch-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ COVER ══════════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-bar"></div>
+  <div class="cover-stamp">INVESTPUPPY PTE LTD · CONFIDENTIAL · INTERNAL USE ONLY</div>
+  <div class="cover-title">Brand Mark<br>Design Specification</div>
+  <div class="cover-sub">Vektor · Tenzor · Maker's Mark</div>
+  <div class="cover-rule"></div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <label>Document ref</label>
+      <span>IP-BRAND-SPEC-260520-v1.1</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Date</label>
+      <span>May 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Status</label>
+      <span>Treatment 4b locked — production ready</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Version</label>
+      <span>1.1 — Locked May 2026</span>
+    </div>
+  </div>
+  <div class="cover-notice" style="border-color:rgba(133,209,85,0.35);color:#888;">
+    <strong style="color:#85D155;">Treatment 4b locked — May 2026.</strong>
+    Confirmed by daylight mobile test. Maker's mark values: grey #AAAAAA, verdigris #6BAF82,
+    weight Poppins Regular 400. Treatment 6 mandatory below 14px rendered wordmark size.
+    The Vektor mark update (alignment of existing asset to 4b) remains an open item
+    for agency production.
+  </div>
+</div>
+
+<div class="body-wrap">
+
+<!-- ══ 1. SCOPE ════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">Scope &amp; Context</span>
+  </div>
+
+  <div class="subsection">
+    <table class="spec">
+      <tr><td>Company</td><td>InvestPuppy Pte Ltd — Singapore-based fintech. Registered company identity uses the InvestPuppy name and logo (existing asset, not in scope here).</td></tr>
+      <tr><td>Products in scope</td><td><strong>Vektor</strong> — systematic listed equity portfolio management platform, boutique scale.<br><strong>Tenzor</strong> — full portfolio management system, institutional scale. Second product, new mark required.</td></tr>
+      <tr><td>Brand tier</td><td>Both marks are Tier 1 — full dark treatment on dark background. Same visual register. Distinct identities connected by shared accent colour (Gold #C8A96E) and common maker's mark.</td></tr>
+      <tr><td>Maker's mark</td><td>BY INVESTPUPPY — the maker's mark appearing below both product wordmarks. Consistent treatment across all products. See Section 6.</td></tr>
+      <tr><td>What is NOT in scope</td><td>InvestPuppy company logo (existing, locked). Unvarnished sub-brand (existing, locked). Website design. Document templates.</td></tr>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>Primary deliverable:</strong> The agency is commissioned to produce production-ready vector and raster assets for the Tenzor mark in all specified variants, and to update the Vektor mark (existing PNG asset provided) to align the BY INVESTPUPPY maker's mark treatment to the Treatment 4b specification below. All assets must be delivered in formats specified in Section 9.
+  </div>
+</div>
+
+<!-- ══ 2. COLOUR PALETTE ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">Colour Palette</span>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">System colours</div>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#0A0A0A;border-color:#ccc;"></div>
+        <div class="swatch-name">Brand Dark</div>
+        <div class="swatch-hex">#0A0A0A</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#C8A96E;"></div>
+        <div class="swatch-name">Gold</div>
+        <div class="swatch-hex">#C8A96E</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#9EA8B3;"></div>
+        <div class="swatch-name">Platinum</div>
+        <div class="swatch-hex">#9EA8B3</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#6BAF82;"></div>
+        <div class="swatch-name">Verdigris</div>
+        <div class="swatch-hex">#6BAF82</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#AAAAAA;"></div>
+        <div class="swatch-name">Grey</div>
+        <div class="swatch-hex">#AAAAAA</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#FFFFFF;border-color:#ddd;"></div>
+        <div class="swatch-name">White</div>
+        <div class="swatch-hex">#FFFFFF</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#85D155;"></div>
+        <div class="swatch-name">IP Green*</div>
+        <div class="swatch-hex">#85D155</div>
+      </div>
+    </div>
+    <p style="font-size:7.5pt;color:var(--grey-light);">* IP Green (#85D155) is the InvestPuppy company colour. It does not appear in the Vektor or Tenzor product wordmarks. It is referenced here for system context only.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Colour specification values</div>
+    <table class="spec">
+      <thead>
+        <tr><th>Name</th><th>Hex</th><th>RGB</th><th>CMYK (approx.)</th><th>Role</th></tr>
+      </thead>
+      <tr>
+        <td>Brand Dark</td>
+        <td><code>#0A0A0A</code></td>
+        <td><code>10 / 10 / 10</code></td>
+        <td><code>0 / 0 / 0 / 96</code></td>
+        <td>Primary background for all product marks</td>
+      </tr>
+      <tr>
+        <td>Gold</td>
+        <td><code>#C8A96E</code></td>
+        <td><code>200 / 169 / 110</code></td>
+        <td><code>0 / 15 / 45 / 22</code></td>
+        <td>Vektor V arrowhead; Tenzor Z letter; Tenzor Z crossbar</td>
+      </tr>
+      <tr>
+        <td>Platinum</td>
+        <td><code>#9EA8B3</code></td>
+        <td><code>158 / 168 / 179</code></td>
+        <td><code>12 / 6 / 0 / 30</code></td>
+        <td>Tenzor wordmark letters (T, E, N, O, R)</td>
+      </tr>
+      <tr>
+        <td>Verdigris</td>
+        <td><code>#6BAF82</code></td>
+        <td><code>107 / 175 / 130</code></td>
+        <td><code>39 / 0 / 26 / 31</code></td>
+        <td>PUPPY in maker's mark (Treatment 4b)</td>
+      </tr>
+      <tr>
+        <td>Grey</td>
+        <td><code>#AAAAAA</code></td>
+        <td><code>170 / 170 / 170</code></td>
+        <td><code>0 / 0 / 0 / 33</code></td>
+        <td>BY and INVEST in maker's mark; BY INVESTPUPPY in Vektor existing asset</td>
+      </tr>
+      <tr>
+        <td>White</td>
+        <td><code>#FFFFFF</code></td>
+        <td><code>255 / 255 / 255</code></td>
+        <td><code>0 / 0 / 0 / 0</code></td>
+        <td>Monochrome variant (Variant C) — full wordmark and maker's mark</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══ 3. TYPOGRAPHY ══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">Typography</span>
+  </div>
+
+  <table class="spec">
+    <thead>
+      <tr><th>Element</th><th>Typeface</th><th>Weight</th><th>Tracking</th><th>Notes</th></tr>
+    </thead>
+    <tr>
+      <td>Tenzor wordmark</td>
+      <td>Montserrat</td>
+      <td>400 (Regular)</td>
+      <td><code>0.16em</code></td>
+      <td>All caps. Letters T, E, N, O, R in Platinum. Z in Gold. See Section 5 for Z crossbar specification.</td>
+    </tr>
+    <tr>
+      <td>Vektor wordmark</td>
+      <td>Montserrat</td>
+      <td>400 (Regular)</td>
+      <td><code>0.16em</code></td>
+      <td>Existing asset. Typeface confirmed as Montserrat Regular. Do not retype — use existing asset as source. Update BY INVESTPUPPY treatment only.</td>
+    </tr>
+    <tr>
+      <td>BY (maker's mark)</td>
+      <td>Poppins</td>
+      <td>400 (Regular)</td>
+      <td><code>0.30em</code></td>
+      <td>Set at approximately 70% of the INVESTPUPPY line size. Colour: Grey #AAAAAA. Two-line Treatment 4b only.</td>
+    </tr>
+    <tr>
+      <td>INVEST (maker's mark)</td>
+      <td>Poppins</td>
+      <td>400 (Regular)</td>
+      <td><code>0.20em</code></td>
+      <td>Colour: Grey #AAAAAA. Appears on same baseline as PUPPY. Do not kern differently from PUPPY.</td>
+    </tr>
+    <tr>
+      <td>PUPPY (maker's mark)</td>
+      <td>Poppins</td>
+      <td>400 (Regular)</td>
+      <td><code>0.20em</code></td>
+      <td>Colour: Verdigris #6BAF82. Continuous with INVEST — same baseline, same size, same tracking. Colour change only.</td>
+    </tr>
+    <tr>
+      <td>BY INVESTPUPPY (Vektor)</td>
+      <td>Poppins</td>
+      <td>400 (Regular)</td>
+      <td><code>0.20em</code></td>
+      <td>Existing Vektor asset treatment uses Grey #AAAAAA for full string. Update to Treatment 4b splits INVEST/PUPPY — see Section 6.</td>
+    </tr>
+  </table>
+
+  <div class="callout" style="margin-top:16px;">
+    <strong>Font licensing note:</strong> Montserrat and Poppins are available under the Open Font License (OFL) via Google Fonts. The agency should confirm licensing requirements for all production contexts (web embedding, print, application packaging) before asset delivery.
+  </div>
+</div>
+
+<!-- ══ 4. VEKTOR MARK ══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">Vektor Mark — Update Specification</span>
+  </div>
+
+  <div class="callout amber">
+    <strong>Scope:</strong> The Vektor wordmark itself is locked and must not be modified. The required change is solely to the BY INVESTPUPPY maker's mark treatment — updating the existing left-aligned, single-colour grey treatment to the Treatment 4b specification (two-line, centred, INVEST grey / PUPPY verdigris). The existing PNG asset (VEKTOR-transparent-v3.png, 1030×496px RGBA) is provided as the source reference.
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Existing asset analysis</div>
+    <table class="spec">
+      <tr><td>File provided</td><td><code>VEKTOR-transparent-v3.png</code></td></tr>
+      <tr><td>Dimensions</td><td>1030 × 496 px, RGBA (transparent background)</td></tr>
+      <tr><td>Wordmark region</td><td>Approximately rows 0–295 of 496 (top 60% of image height)</td></tr>
+      <tr><td>Gap region</td><td>Approximately rows 295–385 — empty space between wordmark and maker's mark</td></tr>
+      <tr><td>Existing maker's mark</td><td>Rows 385–440 — "BY INVESTPUPPY" in Grey #AAAAAA, Poppins Regular, left-aligned</td></tr>
+      <tr><td>Current issue</td><td>Maker's mark is left-aligned (aligns with left edge of V). Required: centred beneath the full wordmark width. Also requires INVEST/PUPPY colour split per Treatment 4b.</td></tr>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Required change</div>
+    <table class="spec">
+      <tr><td>Alignment</td><td>BY INVESTPUPPY block centred horizontally beneath the wordmark. The centre axis of the maker's mark aligns with the optical centre of VEKTOR.</td></tr>
+      <tr><td>Treatment</td><td>Apply Treatment 4b — see Section 6 for full specification.</td></tr>
+      <tr><td>Wordmark</td><td>No change to VEKTOR letterforms, V arrowhead, or spacing.</td></tr>
+      <tr><td>Gap spacing</td><td>Maintain existing vertical gap between wordmark baseline and BY line (approximately 55px at source resolution). Do not compress or expand.</td></tr>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Visual reference (on-screen approximation — not production-accurate)</div>
+    <div class="mark-demo-row">
+      <div class="mark-demo">
+        <div class="mark-demo-label">Vektor — current (left-aligned, single colour)</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:38px;letter-spacing:0.16em;color:#C8A96E;line-height:1;">VEKTOR</div>
+        <div style="margin-top:14px;font-family:'Poppins',sans-serif;font-weight:300;font-size:9px;letter-spacing:0.20em;color:#AAA;">BY INVESTPUPPY</div>
+      </div>
+      <div class="mark-demo">
+        <div class="mark-demo-label">Vektor — required update (centred, Treatment 4b)</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:38px;letter-spacing:0.16em;color:#C8A96E;line-height:1;">VEKTOR</div>
+        <div style="margin-top:14px;text-align:center;">
+          <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:6.5px;letter-spacing:0.30em;color:#888;line-height:1.3;margin-bottom:2px;">BY</div>
+          <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:9px;letter-spacing:0.20em;line-height:1.2;">
+            <span style="color:#888;">INVEST</span><span style="color:#6BAF82;">PUPPY</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:7pt;color:var(--grey-light);margin-top:6px;">Note: VEKTOR shown here in Montserrat as screen approximation. The actual asset uses the original letterforms from the locked PNG. The gold colour and V arrowhead are embedded in the existing asset and must not be changed.</p>
+  </div>
+</div>
+
+<!-- ══ 5. TENZOR MARK ═════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">Tenzor Mark — New Asset Specification</span>
+  </div>
+
+  <div class="callout">
+    <strong>Tenzor is a new mark to be produced from scratch.</strong> No existing asset. The specification below defines every element. The mark must be produced as a vector asset (SVG/AI/EPS) with precise colour, spacing, and crossbar geometry. Raster exports at all required sizes follow from the vector master.
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Wordmark specification</div>
+    <table class="spec">
+      <tr><td>Text</td><td>TENZOR — all caps, no punctuation</td></tr>
+      <tr><td>Typeface</td><td>Montserrat Regular (weight 400)</td></tr>
+      <tr><td>Letter tracking</td><td>0.16em (uniform across all letters)</td></tr>
+      <tr><td>Baseline alignment</td><td>All letters share a common baseline</td></tr>
+      <tr><td>T, E, N, O, R colour</td><td>Platinum <code>#9EA8B3</code></td></tr>
+      <tr><td>Z letter colour</td><td>Gold <code>#C8A96E</code></td></tr>
+      <tr><td>Z letter size</td><td>Same as all surrounding letters — do not scale Z up or down. The visual distinction is colour only (Z-1 treatment, locked).</td></tr>
+      <tr><td>Z position</td><td>Fourth letter. Standard letterspacing applies on both sides of Z. No additional optical spacing adjustment.</td></tr>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Z crossbar specification</div>
+    <table class="spec">
+      <tr><td>What it is</td><td>A diagonal stroke crossing the Z letter, creating a visual accent that echoes the Vektor V arrowhead.</td></tr>
+      <tr><td>Colour</td><td>Gold <code>#C8A96E</code> — same as the Z letter</td></tr>
+      <tr><td>Rotation</td><td>−15° from horizontal (tilts upward left to right)</td></tr>
+      <tr><td>Position</td><td>Vertically centred at 52% of the Z cap-height from baseline</td></tr>
+      <tr><td>Horizontal extent</td><td>Extends 8% beyond each side of the Z letterform bounding box (i.e., left edge at −8% Z width, right edge at +108% Z width)</td></tr>
+      <tr><td>Stroke weight</td><td>Proportional to mark size: <code>max(1.5px, fontSize × 0.028)</code> at screen. For production vector: specify as 2.8% of the cap-height of the Z letter. Minimum 1.5pt at any rendered size.</td></tr>
+      <tr><td>Stroke caps</td><td>Rounded ends (border-radius equivalent)</td></tr>
+      <tr><td>Presence rule</td><td>Crossbar present at 18px rendered size and above (Variant A). Absent below 18px (Variant B). See Section 7.</td></tr>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Visual reference</div>
+    <div class="mark-demo-row">
+      <div class="mark-demo">
+        <div class="mark-demo-label">Tenzor — Variant A (full mark, crossbar present)</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:44px;letter-spacing:0.16em;line-height:1;display:inline-flex;align-items:baseline;">
+          <span style="color:#9EA8B3;">T</span>
+          <span style="color:#9EA8B3;">E</span>
+          <span style="color:#9EA8B3;">N</span>
+          <span style="color:#C8A96E;position:relative;">Z
+            <span style="position:absolute;left:-8%;right:-8%;top:52%;height:2px;background:#C8A96E;transform:rotate(-15deg) translateY(-50%);border-radius:1px;display:block;"></span>
+          </span>
+          <span style="color:#9EA8B3;">O</span>
+          <span style="color:#9EA8B3;">R</span>
+        </div>
+        <div style="margin-top:12px;text-align:center;">
+          <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:7px;letter-spacing:0.30em;color:#AAA;margin-bottom:2px;">BY</div>
+          <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:10px;letter-spacing:0.20em;">
+            <span style="color:#888;">INVEST</span><span style="color:#6BAF82;">PUPPY</span>
+          </div>
+        </div>
+      </div>
+      <div class="mark-demo">
+        <div class="mark-demo-label">Tenzor — Variant B (clean, no crossbar, small sizes)</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:44px;letter-spacing:0.16em;line-height:1;display:inline-flex;align-items:baseline;">
+          <span style="color:#9EA8B3;">T</span>
+          <span style="color:#9EA8B3;">E</span>
+          <span style="color:#9EA8B3;">N</span>
+          <span style="color:#C8A96E;">Z</span>
+          <span style="color:#9EA8B3;">O</span>
+          <span style="color:#9EA8B3;">R</span>
+        </div>
+        <div style="margin-top:12px;text-align:center;">
+          <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:7px;letter-spacing:0.30em;color:#AAA;margin-bottom:2px;">BY</div>
+          <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:10px;letter-spacing:0.20em;">
+            <span style="color:#888;">INVEST</span><span style="color:#6BAF82;">PUPPY</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 6. MAKER'S MARK ════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-title">Maker's Mark — Treatment 4b Specification</span>
+  </div>
+
+  <div class="callout verdigris">
+    <strong>Treatment 4b — LOCKED May 2026.</strong> Confirmed by 16-member panel review and daylight mobile test. The maker's mark is consistent across all InvestPuppy products. Future products inherit this specification unchanged.
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Architecture</div>
+    <p style="font-size:8.5pt;margin-bottom:12px;">Two-line colophon structure. BY appears above on a separate line, acting as a category label. INVESTPUPPY appears below, with INVEST in grey and PUPPY in verdigris — echoing the InvestPuppy company logo colour split (Invest white / Puppy green).</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Precise specification</div>
+    <table class="spec">
+      <thead>
+        <tr><th>Element</th><th>Typeface</th><th>Weight</th><th>Size</th><th>Tracking</th><th>Colour</th><th>Alignment</th></tr>
+      </thead>
+      <tr>
+        <td>BY</td>
+        <td>Poppins</td>
+        <td>Regular / 400</td>
+        <td>70% of INVESTPUPPY size</td>
+        <td><code>0.30em</code></td>
+        <td><code>#AAAAAA</code></td>
+        <td>Centred</td>
+      </tr>
+      <tr>
+        <td>INVEST</td>
+        <td>Poppins</td>
+        <td>Regular / 400</td>
+        <td>Reference size (see below)</td>
+        <td><code>0.20em</code></td>
+        <td><code>#AAAAAA</code></td>
+        <td>Continuous with PUPPY</td>
+      </tr>
+      <tr>
+        <td>PUPPY</td>
+        <td>Poppins</td>
+        <td>Regular / 400</td>
+        <td>Same as INVEST</td>
+        <td><code>0.20em</code></td>
+        <td><code>#6BAF82</code></td>
+        <td>Continuous with INVEST</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Sizing relationship to wordmark</div>
+    <table class="spec">
+      <tr><td>Reference size</td><td>The INVESTPUPPY line size (reference size) should be approximately 9.5% of the wordmark cap-height at any given scale. Example: at a 100px wordmark cap-height, INVESTPUPPY is ~9.5px. BY is ~6.65px (70% of 9.5px).</td></tr>
+      <tr><td>Vertical gap (BY to INVESTPUPPY)</td><td>Line-height 1.2 on INVESTPUPPY line. Gap between BY baseline and INVESTPUPPY cap-height: 2px at 8px reference size (proportional at other sizes).</td></tr>
+      <tr><td>Vertical gap (wordmark to BY)</td><td>Spacing above the maker's mark block: approximately 18% of the wordmark fontSize. This creates visual connection without crowding.</td></tr>
+      <tr><td>Minimum maker's mark size</td><td>INVESTPUPPY line no smaller than 5.5pt / 7.3px in any application. Below 14px (rendered wordmark size), apply Treatment 6 (single word, full #6BAF82) as mandatory variant — see Section 7.</td></tr>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Minimum-size variant (Treatment 6)</div>
+    <div class="callout">
+      When the full mark is rendered below 14px wordmark size, the INVEST/PUPPY split is not reliably legible in adverse conditions (confirmed by daylight mobile test). Use <strong>Treatment 6</strong> as the mandatory variant: BY (grey, small, above) / INVESTPUPPY (single word, Verdigris #6BAF82, below). All other specifications (typeface, weight, tracking, alignment) are identical to Treatment 4b.
+    </div>
+  </div>
+</div>
+
+<!-- ══ 7. VARIANT SYSTEM ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <span class="section-title">Variant System</span>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Tenzor — three variants</div>
+    <table class="spec">
+      <thead>
+        <tr><th>Variant</th><th>When to use</th><th>Wordmark</th><th>Z crossbar</th><th>Maker's mark</th></tr>
+      </thead>
+      <tr>
+        <td>A — Full mark</td>
+        <td>18px rendered size and above. All display and document use.</td>
+        <td>Platinum + Gold Z</td>
+        <td>Present. Gold. Proportional weight.</td>
+        <td>Treatment 4b (BY above / INVEST grey / PUPPY verdigris)</td>
+      </tr>
+      <tr>
+        <td>B — Clean mark</td>
+        <td>Below 18px rendered size. Footers, watermarks, stamps.</td>
+        <td>Platinum + Gold Z</td>
+        <td>Absent</td>
+        <td>Treatment 4b or Treatment 6 depending on legibility</td>
+      </tr>
+      <tr>
+        <td>C — Monochrome</td>
+        <td>Single-colour applications: legal documents, letterheads, embossing, single-colour print.</td>
+        <td>White (#FFFFFF)</td>
+        <td>Absent</td>
+        <td>BY INVESTPUPPY as single line, White (#FFFFFF), Poppins Regular, tracking 0.20em</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="callout amber" style="margin-top:4px;">
+    <strong>Two-variant governance:</strong> The choice between Variant A and B is governed by rendered size only. The threshold is 18px (or equivalent at any output resolution). This rule must be documented in the brand guide and applied consistently. There is no personal owner — the rule is self-enforcing once documented.
+  </div>
+
+  <div class="subsection" style="margin-top:24px;">
+    <div class="subsection-title">Vektor — variants</div>
+    <table class="spec">
+      <thead>
+        <tr><th>Variant</th><th>When to use</th><th>Specification</th></tr>
+      </thead>
+      <tr>
+        <td>Standard</td>
+        <td>All uses. The Vektor mark has no size-based variant for the wordmark itself (it is a PNG asset).</td>
+        <td>Existing locked asset (VEKTOR-transparent-v3.png), updated with Treatment 4b maker's mark.</td>
+      </tr>
+      <tr>
+        <td>Monochrome</td>
+        <td>Single-colour applications.</td>
+        <td>To be produced by agency. White wordmark on transparent background. BY INVESTPUPPY single line, White, Poppins Regular, tracking 0.20em, centred.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══ 8. SCALE REFERENCE ════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <span class="section-title">Scale Reference</span>
+  </div>
+
+  <p style="font-size:8.5pt;margin-bottom:16px;">Tenzor wordmark sizes shown at key scale points. All sizes are rendered fontSize (px). Vektor is a fixed PNG asset and scales by image width — equivalent visual sizes shown for reference.</p>
+
+  <div>
+    <div class="scale-row" style="background:var(--bg-tint);">
+      <div class="scale-cell label" style="font-size:7pt;font-weight:600;color:var(--grey-light);letter-spacing:0.1em;text-transform:uppercase;">Size / Use</div>
+      <div class="scale-cell vektor" style="font-size:7pt;font-weight:600;color:var(--grey-light);letter-spacing:0.1em;text-transform:uppercase;">Tenzor size</div>
+      <div class="scale-cell tenzor" style="font-size:7pt;font-weight:600;color:var(--grey-light);letter-spacing:0.1em;text-transform:uppercase;">Variant</div>
+    </div>
+
+    <div class="scale-row">
+      <div class="scale-cell label">
+        <div class="scale-size-name">Hero / splash</div>
+        <div class="scale-use">Splash screens, large banners, full-bleed covers</div>
+      </div>
+      <div class="scale-cell vektor"><code>72px – 96px+</code></div>
+      <div class="scale-cell tenzor">A — Full mark with crossbar</div>
+    </div>
+
+    <div class="scale-row">
+      <div class="scale-cell label">
+        <div class="scale-size-name">Large display</div>
+        <div class="scale-use">Cover pages, large headings, presentation title slides</div>
+      </div>
+      <div class="scale-cell vektor"><code>48px – 72px</code></div>
+      <div class="scale-cell tenzor">A — Full mark with crossbar</div>
+    </div>
+
+    <div class="scale-row">
+      <div class="scale-cell label">
+        <div class="scale-size-name">Document header</div>
+        <div class="scale-use">Report covers, white paper headers, proposal covers</div>
+      </div>
+      <div class="scale-cell vektor"><code>32px – 48px</code></div>
+      <div class="scale-cell tenzor">A — Full mark with crossbar</div>
+    </div>
+
+    <div class="scale-row">
+      <div class="scale-cell label">
+        <div class="scale-size-name">Section / sub-header</div>
+        <div class="scale-use">Section breaks, navigation, pull-out branding</div>
+      </div>
+      <div class="scale-cell vektor"><code>22px – 32px</code></div>
+      <div class="scale-cell tenzor">A — Full mark with crossbar</div>
+    </div>
+
+    <div class="scale-row" style="background:#fffbf3;">
+      <div class="scale-cell label">
+        <div class="scale-size-name">Minimum full mark</div>
+        <div class="scale-use">Smallest size with crossbar and Treatment 4b INVEST/PUPPY split</div>
+        <div class="threshold-badge">▲ Crossbar threshold</div>
+      </div>
+      <div class="scale-cell vektor"><code>18px</code></div>
+      <div class="scale-cell tenzor">A → B transition at this size</div>
+    </div>
+
+    <div class="scale-row">
+      <div class="scale-cell label">
+        <div class="scale-size-name">Footer / signature</div>
+        <div class="scale-use">Document footers, email signatures, navigation bars</div>
+        <div class="scale-note">Variant B — no crossbar</div>
+      </div>
+      <div class="scale-cell vektor"><code>13px – 18px</code></div>
+      <div class="scale-cell tenzor">B — Clean mark, no crossbar</div>
+    </div>
+
+    <div class="scale-row">
+      <div class="scale-cell label">
+        <div class="scale-size-name">Watermark / stamp</div>
+        <div class="scale-use">Document watermarks, running headers, small stamps</div>
+        <div class="scale-note">Treatment 6 recommended for maker's mark</div>
+      </div>
+      <div class="scale-cell vektor"><code>9px – 13px</code></div>
+      <div class="scale-cell tenzor">B — Consider Treatment 6 maker's mark</div>
+    </div>
+
+    <div class="scale-row">
+      <div class="scale-cell label">
+        <div class="scale-size-name">Absolute minimum</div>
+        <div class="scale-use">Metadata contexts, absolute floor — do not use below this</div>
+        <div class="scale-note">Review at production — legibility must be confirmed</div>
+      </div>
+      <div class="scale-cell vektor"><code>7px</code></div>
+      <div class="scale-cell tenzor">B — Confirm legibility before use</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 9. CLEAR SPACE ════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <span class="section-title">Clear Space &amp; Minimum Size</span>
+  </div>
+
+  <table class="spec">
+    <tr>
+      <td>Clear space rule</td>
+      <td>Minimum clear space on all four sides of the complete mark (wordmark + maker's mark) equals the cap-height of the first letter of the wordmark at the rendered size. This applies equally to Vektor and Tenzor, and to all three variants.</td>
+    </tr>
+    <tr>
+      <td>Minimum digital size</td>
+      <td>Tenzor wordmark fontSize no smaller than 7px. Vektor PNG no smaller than 80px wide display width. Below these thresholds legibility cannot be guaranteed.</td>
+    </tr>
+    <tr>
+      <td>Minimum print size</td>
+      <td>Wordmark cap-height no smaller than 4mm in any print application. Maker's mark INVESTPUPPY line no smaller than 5.5pt.</td>
+    </tr>
+    <tr>
+      <td>Clear space elements</td>
+      <td>No other typographic elements, imagery, or graphic devices within the clear space zone. Background colour changes (e.g. a panel edge) may occur at the clear space boundary.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ══ 10. DELIVERABLES ════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <span class="section-title">Required Deliverables</span>
+  </div>
+
+  <div class="deliverables-grid">
+    <div class="deliverable-card">
+      <h4>Tenzor — Variant A (full mark)</h4>
+      <ul>
+        <li>SVG — master vector, transparent background</li>
+        <li>AI / EPS — editable source file</li>
+        <li>PNG 512px — @1x transparent background</li>
+        <li>PNG 1024px — @2x transparent background</li>
+        <li>PNG 2048px — @4x transparent background</li>
+        <li>PDF — vector, for print</li>
+      </ul>
+    </div>
+    <div class="deliverable-card">
+      <h4>Tenzor — Variant B (clean, no crossbar)</h4>
+      <ul>
+        <li>SVG — master vector, transparent background</li>
+        <li>PNG 256px — @1x transparent background</li>
+        <li>PNG 512px — @2x transparent background</li>
+        <li>PDF — vector, for print</li>
+      </ul>
+    </div>
+    <div class="deliverable-card">
+      <h4>Tenzor — Variant C (monochrome)</h4>
+      <ul>
+        <li>SVG — white on transparent</li>
+        <li>SVG — black on transparent (reversed)</li>
+        <li>PDF — vector, both versions</li>
+        <li>PNG 512px — white on transparent</li>
+        <li>PNG 512px — black on transparent</li>
+      </ul>
+    </div>
+    <div class="deliverable-card">
+      <h4>Vektor — updated asset</h4>
+      <ul>
+        <li>PNG 2060×992px @2x — RGBA, Treatment 4b applied</li>
+        <li>PNG 1030×496px @1x — RGBA, Treatment 4b applied</li>
+        <li>SVG — vector reconstruction of full mark</li>
+        <li>Monochrome variant: white on transparent SVG + PNG</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:8px;">
+    <div class="subsection-title">File naming convention</div>
+    <table class="spec">
+      <thead><tr><th>Pattern</th><th>Example</th></tr></thead>
+      <tr>
+        <td><code>[MARK]-[VARIANT]-[SIZE].[EXT]</code></td>
+        <td><code>tenzor-A-2048.png</code> / <code>tenzor-A.svg</code> / <code>vektor-standard-2060.png</code></td>
+      </tr>
+      <tr>
+        <td>Marks</td>
+        <td><code>vektor</code> / <code>tenzor</code></td>
+      </tr>
+      <tr>
+        <td>Variants</td>
+        <td><code>A</code> (full) / <code>B</code> (clean) / <code>C</code> (mono-white) / <code>C-black</code> (mono-black) / <code>standard</code> (Vektor)</td>
+      </tr>
+      <tr>
+        <td>Sizes</td>
+        <td>Long edge in pixels for PNG: <code>512</code> / <code>1024</code> / <code>2048</code>. Omit for SVG/PDF/AI/EPS.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══ 11. PROHIBITED USES ════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <span class="section-title">Prohibited Uses</span>
+  </div>
+
+  <div class="prohibited-grid">
+    <div class="prohibited-item">Do not alter the letterform proportions or spacing of either wordmark.</div>
+    <div class="prohibited-item">Do not use the product marks on a non-dark background without explicit approval. Both marks are designed for dark (#0A0A0A) backgrounds. Monochrome variants exist for exceptions.</div>
+    <div class="prohibited-item">Do not use the InvestPuppy Green (#85D155) in either product wordmark or maker's mark. Green is the company identity colour only.</div>
+    <div class="prohibited-item">Do not apply a drop shadow, glow, gradient, or any other effect to either wordmark.</div>
+    <div class="prohibited-item">Do not rotate, skew, or distort either wordmark.</div>
+    <div class="prohibited-item">Do not place either mark at a size below the minimum legible threshold (7px digital / 4mm print cap-height).</div>
+    <div class="prohibited-item">Do not use PUPPY in any colour other than Verdigris (#6BAF82) in Treatment 4b, or White (#FFFFFF) in Variant C.</div>
+    <div class="prohibited-item">Do not render Variant A (with crossbar) below 18px. Use Variant B.</div>
+    <div class="prohibited-item">Do not use the Tenzor mark without the maker's mark in any public-facing context.</div>
+    <div class="prohibited-item">Do not modify the Vektor wordmark letterforms. The V arrowhead in Gold (#C8A96E) is an integral part of the locked asset.</div>
+  </div>
+</div>
+
+<!-- ══ 12. OPEN ITEMS ═════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">12</span>
+    <span class="section-title">Open Items — Not Yet Specified</span>
+  </div>
+
+  <table class="spec">
+    <thead>
+      <tr><th>Ref</th><th>Item</th><th>Status</th><th>Dependency</th></tr>
+    </thead>
+    <tr>
+      <td>T4</td>
+      <td>Monochrome variant — precise specification of Variant C maker's mark weight, spacing, and print production details.</td>
+      <td>Pending</td>
+      <td>Locks after Treatment 4b is formally confirmed</td>
+    </tr>
+    <tr>
+      <td>T5</td>
+      <td>Minimum clear space rule — formal definition in brand guide (above is provisional).</td>
+      <td>Pending</td>
+      <td>Can be confirmed independently</td>
+    </tr>
+    <tr>
+      <td>T1</td>
+      <td>Vektor typeface — confirmed as Montserrat by client. Not independently verified against original asset. Agency should confirm during Vektor asset reconstruction.</td>
+      <td>Unverified</td>
+      <td>Verify during production</td>
+    </tr>
+    <tr>
+      <td>—</td>
+      <td>Treatment 4b — maker's mark specification. Locked May 2026. Confirmed by daylight mobile test.</td>
+      <td style="color:#85D155;font-weight:500;">Locked</td>
+      <td>Production may commence</td>
+    </tr>
+    <tr>
+      <td>—</td>
+      <td>Tenzor name — confirmed by client as working name. Formal trademark search and registration not confirmed. Agency should flag if name is required for any trademark-sensitive deliverable.</td>
+      <td>Client confirmed, not legally verified</td>
+      <td>Client responsibility</td>
+    </tr>
+  </table>
+</div>
+
+</div><!-- /body-wrap -->
+
+<div class="doc-footer">
+  <span>InvestPuppy Pte Ltd · IP-BRAND-SPEC-260520-v1.1 · May 2026 · Confidential</span>
+  <span>Treatment 4b locked May 2026 · Production ready</span>
+</div>
+
+</body>
+</html>
